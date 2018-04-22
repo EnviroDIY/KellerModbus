@@ -3,9 +3,9 @@ KellerModbus.h
 
 Written by Anthony Aufdenkampe
 
-First version only for Acculevel and other Series 30, Class 5, Group 20 sensors
-Software version 5.20-12.28 and later
-(i.e. made after the 2012 in the 28th week)
+Only tested the Acculevel
+- a Keller Series 30, Class 5, Group 20 sensor
+- Software version 5.20-12.28 and later (i.e. made after the 2012 in the 28th week)
 
 */
 
@@ -28,13 +28,15 @@ public:
     bool begin(byte modbusSlaveID, Stream &stream, int enablePin = -1);
 
     // This gets the modbus slave ID.
-    byte getSlaveID(void);
+    // NOTE: NOT YET WORKING
+//    byte getSlaveID(void);
 
     // This sets a new modbus slave ID
-    bool setSlaveID(byte newSlaveID);
+    // NOTE: NOT YET WORKING
+//    bool setSlaveID(byte newSlaveID);
 
     // This gets the instrument serial number as a String
-    String getSerialNumber(void);
+    long getSerialNumber(void);
 
     // This gets the hardware and software version of the sensor
     // The float variables for the hardware and software versions must be
@@ -43,7 +45,8 @@ public:
     // the function is able to modify the actual input floats rather than
     // create and destroy copies of them.
     // There is no need to add the & when actually using the function.
-    bool getVersion(float &hardwareVersion, float &softwareVersion);
+    // NOTE: NOT YET WORKING
+//   bool getVersion(float &hardwareVersion, float &softwareVersion);
 
 
     // This gets values back from the sensor
@@ -54,7 +57,7 @@ public:
     //            with the parameter first and the temperature second
     // 2 values and an error code - As two values, but with error code
     bool getValues(float &parmValue, float &tempValue);
-    bool getValues(float &parmValue, float &tempValue, byte &errorCode);
+//    bool getValues(float &parmValue, float &tempValue, byte &errorCode);
 
 
     // This sets a stream for debugging information to go to;
