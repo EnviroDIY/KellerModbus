@@ -1,11 +1,10 @@
 /*****************************************************************************
-KellerTest.ino
+Keller/GetValues.ino
 
 Modified by Anthony Aufdenkampe, from YosemitechModbus/GetValues.ino
 2018-April
 
-For testing Keller functionality
-Does not use functions in the KellerModbus library
+For testing individual functions in KellerModbus library
 
 *****************************************************************************/
 
@@ -15,6 +14,7 @@ Does not use functions in the KellerModbus library
 #include <Arduino.h>
 #include <AltSoftSerial.h>
 #include <SensorModbusMaster.h>
+#include "KellerModbus.h"
 
 
 // ---------------------------------------------------------------------------
@@ -43,47 +43,18 @@ AltSoftSerial modbusSerial;  // On Mayfly, requires connection D5 & D6
 // Construct the modbus instance
 modbusMaster modbus;
 
+// Construct the Keller modbus instance
+keller sensor;
+bool success;
+
 
 // ---------------------------------------------------------------------------
 // Working Functions
 // ---------------------------------------------------------------------------
 
 // Give values to variables;
-byte modbusSlaveID = modbusAddress;
-byte _slaveID = modbusSlaveID;
-
-
-int getSlaveID(void)
-{
-    return modbus.byteFromRegister(0x03, 0x020D, 2); // byte byteFromRegister(byte regType, int regNum, int byteNum)
-
-}
-
-long getSerialNumber(void)
-{
-    return modbus.uint32FromRegister(0x03, 0x0202); // uint32_t uint32FromRegister(byte regType, int regNum, endianness endian=bigEndian);
-}
-
-float calcWaterDepthM(float waterPressureBar, float waterTempertureC)
-{
-    /// Initialize variables
-    float waterPressurePa;
-    float waterDensity;
-    float waterDepthM;
-    const float gravitationalConstant = 9.80665; // m/s2, meters per second squared
-
-    waterPressurePa = 1e5 * waterPressureBar;
-    // Water density (kg/m3) from equation 6 from JonesHarris1992-NIST-DensityWater.pdf
-    waterDensity =  + 999.84847
-                    + 6.337563e-2 * waterTempertureC
-                    - 8.523829e-3 * pow(waterTempertureC,2)
-                    + 6.943248e-5 * pow(waterTempertureC,3)
-                    - 3.821216e-7 * pow(waterTempertureC,4)
-                    ;
-    waterDepthM = waterPressurePa/(waterDensity * gravitationalConstant);  // from P = rho * g * h
-
-    return waterDepthM;
-}
+// byte modbusSlaveID = modbusAddress;
+// byte _slaveID = modbusSlaveID;
 
 
 // ---------------------------------------------------------------------------
@@ -101,64 +72,66 @@ void setup()
     modbusSerial.begin(9600);  // The modbus serial stream - Baud rate MUST be 9600.
 
     // Start up the modbus sensor
-    modbus.begin(modbusAddress, &modbusSerial, DEREPin);
+    sensor.begin(modbusAddress, &modbusSerial, DEREPin);  // bool begin(byte modbusSlaveID, Stream *stream, int enablePin = -1);
 
     // Turn on debugging
-    //modbus.setDebugStream(&Serial);
+    // sensor.setDebugStream(&Serial);
 
     // Start up note
     Serial.println("Keller Acculevel (or other Series 30, Class 5, Group 20 sensor)");
+
     Serial.println("Waiting for sensor and adapter to be ready.");
     delay(500);
 
     Serial.print("Device Address, as integer: ");
-    Serial.println(getSlaveID());
+    Serial.println(sensor.getSlaveID());
 
     Serial.print("Serial Number: ");
-    Serial.println(getSerialNumber());
+    Serial.println(sensor.getSerialNumber());
 
-    Serial.print("Firmware Version: ");
-    Serial.print(modbus.byteFromRegister(0x03, 0x020E, 1));
-    Serial.print(".");
-    Serial.print(modbus.byteFromRegister(0x03, 0x020E, 2));
-    Serial.print("-");
-    Serial.print(modbus.byteFromRegister(0x03, 0x020F, 1));
-    Serial.print(".");
-    Serial.print(modbus.byteFromRegister(0x03, 0x020F, 2));
+    Serial.println("Starting sensor measurements");
+
+    Serial.println("Allowing sensor to stabilize..");
+    for (int i = 5; i > 0; i--)     // 4 second delay
+    {
+        Serial.print(i);
+        delay (250);
+        Serial.print(".");
+        delay (250);
+        Serial.print(".");
+        delay (250);
+        Serial.print(".");
+        delay (250);
+    }
+    Serial.println("\n");
+
+    Serial.print("Temp(°C)  ");
+    Serial.print("Pressure(mbar)  ");
+    Serial.print("Depth (mWC)");
     Serial.println();
 
-    Serial.println("Started!");
 }
 
 // Initialize variables
 float waterPressureBar = -9999.0;
-float waterPressurePa  = -9999.0;
 float waterTempertureC = -9999.0;
-float waterDensity = -9999.0;
 float waterDepthM = -9999.0;
-const float gravitationalConstant = 9.80665; // m/s2, meters per second squared
 
 // ---------------------------------------------------------------------------
 // Main loop function
 // ---------------------------------------------------------------------------
 void loop()
 {
-    Serial.println("Reading!");
+    sensor.getValues(waterPressureBar, waterTempertureC);
+    waterDepthM = sensor.calcWaterDepthM(waterPressureBar, waterTempertureC);  // float calcWaterDepthM(float waterPressureBar, float waterTempertureC)
 
-    waterPressureBar = modbus.float32FromRegister(0x03,  0x0100);
-    Serial.print("Presure (mbar): ");
-    Serial.println(waterPressureBar, 6);
+    Serial.print(waterTempertureC);
+    Serial.print("      ");
+    Serial.print(waterPressureBar, 7);
+    Serial.print("      ");
+    Serial.print(waterDepthM, 6);
+    Serial.println();
 
-    waterTempertureC = modbus.float32FromRegister(0x03,  0x0102);
-    Serial.print("Temperature (C): ");
-    Serial.println(waterTempertureC, 4);
-
-    // Calculate Water Depth in Meters
-    waterDepthM = calcWaterDepthM(waterPressureBar, waterTempertureC);  // float calcWaterDepthM(float waterPressureBar, float waterTempertureC)
-    Serial.print("Depth (mWC) by func: ");
-    Serial.println(waterDepthM, 8);
-
-
-    delay(3000);
+    delay(2000);
 
 }

@@ -36,23 +36,15 @@ bool keller::begin(byte modbusSlaveID, Stream &stream, int enablePin)
 // For Keller, slaveID is in register 0x020D (525), or regNum = 0x020D
 // regType = 0x03 for all Keller Modbus Register Read functions
 // NOTE: NOT YET WORKING
-// byte keller::getSlaveID(void)
-// {
-//    return modbus.byteFromRegister(0x03, 0x020D, 0); // byte byteFromRegister(byte regType, int regNum, int byteNum)
-//    return modbus.uint16FromRegister(0x03, 0x020D);// uint16_t uint16FromRegister(byte regType, int regNum, endianness endian=bigEndian);
-
-// Uses the transparent DevAddr = 250 (or 0xFA in HEX)
-//     byte command[8] = {0xFA, 0x03, 0x02, 0x0D, 0x00, 0x01, 0x23, 0x3A};
-//     int respSize = modbus.sendCommand(command, 8);
-//
-//     if (respSize == 9) return modbus.responseBuffer[4];
-//     else return -9999;  // This is the default address
-// }
+byte keller::getSlaveID(void)
+{
+    return modbus.byteFromRegister(0x03, 0x020D, 2); // byte byteFromRegister(byte regType, int regNum, int byteNum)
+}
 
 
 // This sets a new modbus slave ID
 // For Keller, The slaveID is in register 0x020D (525), or regNum = 0x020D
-// NOTE: NOT YET WORKING
+// NOTE: NOT YET TESTED
 // bool keller::setSlaveID(byte newSlaveID)
 // {
 //     return modbus.byteToRegister(0x020D, 2, newSlaveID); //bool byteToRegister(int regNum, int byteNum, byte value, bool forceMultiple=false);
@@ -68,16 +60,17 @@ long keller::getSerialNumber(void)
 
 
 // This gets the hardware and software version of the sensor
-// This data begins in holding register 0x0700 (1792) and continues for 2 registers
-// bool yosemitech::getVersion(float &hardwareVersion, float &softwareVersion)
+// This data begins in holding register 0x020E (??) and continues for 2 registers
+// bool keller::getVersion(float &ClassGroup, float &YearWeek)
 // {
-//     // Parse into version numbers
-//     // These aren't actually little endian responses.  The first byte is the
-//     // major version and the second byte is the minor version.
-//     if (modbus.getRegisters(0x03, 0x0700, 2))
+//     // Parse into version numbers, as a string "Class.Group-Year:Week"
+//     // These aren't actually little endian responses.
+//     // The first byte is the Class
+//     // The second byte is the Group
+//     if (modbus.getRegisters(0x03, 0x020E, 2))
 //     {
-//         hardwareVersion = modbus.byteFromFrame(3) + (float)modbus.byteFromFrame(4) / 100;
-//         softwareVersion = modbus.byteFromFrame(5) + (float)modbus.byteFromFrame(6) / 100;
+//         ClassGroup = modbus.byteFromFrame(3) + (float)modbus.byteFromFrame(4) / 100;
+//         YearWeek = modbus.byteFromFrame(5) + (float)modbus.byteFromFrame(6) / 100;
 //         return true;
 //     }
 //     else return false;
@@ -91,11 +84,33 @@ long keller::getSerialNumber(void)
 bool keller::getValues(float &valueP1, float &valueTOB1)
 {
     // Set values to -9999 and error flagged before asking for the result
-    valueP1   = -9999;  // Initialize with an error value
-    valueTOB1 = -9999;  // Initialize with an error value
+    valueP1   = -9999;  // Pressure (bar) for sensor1
+    valueTOB1 = -9999;  // Temperature (C) on board sensor 1
 
-    modbus.getRegisters(0x03, 0x0100, 4);
+    valueP1 = modbus.float32FromRegister(0x03,  0x0100);
+    valueTOB1 = modbus.float32FromRegister(0x03,  0x0102);
 
-    valueP1   = modbus.float32FromFrame(littleEndian, 3);   // Pressure of sensor1 [bar?]
-    valueTOB1 = modbus.float32FromFrame(littleEndian, 7);   // Temperature of sensor1 [°C]
+    return valueP1;
+    return valueTOB1;
+}
+
+float keller::calcWaterDepthM(float &waterPressureBar, float &waterTempertureC)
+{
+    /// Initialize variables
+    float waterPressurePa;
+    float waterDensity;
+    float waterDepthM;
+    const float gravitationalConstant = 9.80665; // m/s2, meters per second squared
+
+    waterPressurePa = 1e5 * waterPressureBar;
+    // Water density (kg/m3) from equation 6 from JonesHarris1992-NIST-DensityWater.pdf
+    waterDensity =  + 999.84847
+                    + 6.337563e-2 * waterTempertureC
+                    - 8.523829e-3 * pow(waterTempertureC,2)
+                    + 6.943248e-5 * pow(waterTempertureC,3)
+                    - 3.821216e-7 * pow(waterTempertureC,4)
+                    ;
+    waterDepthM = waterPressurePa/(waterDensity * gravitationalConstant);  // from P = rho * g * h
+
+    return waterDepthM;
 }

@@ -29,7 +29,7 @@ public:
 
     // This gets the modbus slave ID.
     // NOTE: NOT YET WORKING
-//    byte getSlaveID(void);
+    byte getSlaveID(void);
 
     // This sets a new modbus slave ID
     // NOTE: NOT YET WORKING
@@ -56,9 +56,10 @@ public:
     // 2 values - This will be the parameter and the temperature,
     //            with the parameter first and the temperature second
     // 2 values and an error code - As two values, but with error code
-    bool getValues(float &parmValue, float &tempValue);
+    bool getValues(float &valueP1, float &valueTOB1);
 //    bool getValues(float &parmValue, float &tempValue, byte &errorCode);
 
+    float calcWaterDepthM(float &waterPressureBar, float &waterTempertureC);
 
     // This sets a stream for debugging information to go to;
     void setDebugStream(Stream *stream){modbus.setDebugStream(stream);}
