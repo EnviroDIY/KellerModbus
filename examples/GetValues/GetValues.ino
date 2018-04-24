@@ -106,7 +106,7 @@ void setup()
     Serial.println("\n");
 
     Serial.print("Temp(°C)  ");
-    Serial.print("Pressure(mbar)  ");
+    Serial.print("Pressure(bar)  ");
     Serial.print("Depth (mWC)");
     Serial.println();
 
@@ -132,6 +132,6 @@ void loop()
     Serial.print(waterDepthM, 6);
     Serial.println();
 
-    delay(2000);
+    delay(1500);
 
 }

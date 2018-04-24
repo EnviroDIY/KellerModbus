@@ -32,6 +32,12 @@ bool keller::begin(byte modbusSlaveID, Stream &stream, int enablePin)
 {return begin(modbusSlaveID, &stream, enablePin);}
 
 
+
+
+
+
+
+
 // This gets the modbus slave ID.
 // For Keller, slaveID is in register 0x020D (525), or regNum = 0x020D
 // regType = 0x03 for all Keller Modbus Register Read functions
@@ -90,16 +96,15 @@ bool keller::getValues(float &valueP1, float &valueTOB1)
     valueP1 = modbus.float32FromRegister(0x03,  0x0100);
     valueTOB1 = modbus.float32FromRegister(0x03,  0x0102);
 
-    return valueP1;
-    return valueTOB1;
+    return true;
 }
 
 float keller::calcWaterDepthM(float &waterPressureBar, float &waterTempertureC)
 {
     /// Initialize variables
-    float waterPressurePa;
-    float waterDensity;
-    float waterDepthM;
+    float waterPressurePa; // in Pascals (kg/m/s2)
+    float waterDensity;    // in kmg/m2
+    float waterDepthM;     // in m
     const float gravitationalConstant = 9.80665; // m/s2, meters per second squared
 
     waterPressurePa = 1e5 * waterPressureBar;

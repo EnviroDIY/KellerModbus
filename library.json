@@ -1,0 +1,50 @@
+{
+  "name": "KellerModbus",
+  "version": "0.1.0",
+  "keywords": "Keller, Modbus, communication, bus, sensor, water level, pressure",
+  "description": "Arduino library for communication with Keller pressure and water level sensors via Modbus.",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/EnviroDIY/KellerModbus"
+  },
+  "authors":
+  [
+    {
+      "name": "Anthony Aufdenkampe",
+      "email": "aaufdenkampe@limno.com",
+      "maintainer": true
+    }
+  ],
+  "license": "BSD-3-Clause",
+  "frameworks": "arduino",
+  "platforms": "atmelavr, atmelsam",
+  "dependencies":
+  [
+        {
+            "name": "SensorModbusMaster",
+            "library id": "1824",
+            "url": "https://github.com/EnviroDIY/SensorModbusMaster.git",
+            "version": ">=0.6.2",
+            "note": "EnviroDIY SensorModbusMaster - Arduino library for communicating via modbus with the Arduino acting as the modbus master.",
+            "authors": [
+                "Sara Damiano"
+            ],
+            "frameworks": "arduino",
+            "platforms": "atmelavr, atmelsam"
+        }
+  ],
+  "examples":
+  [
+    "examples/*/*.ino",
+    "utilities/*/*.ino"
+  ],
+  "export":
+  {
+    "exclude":
+    [
+        "doc/*",
+        "sensor_tests/*"
+    ]
+  }
+}

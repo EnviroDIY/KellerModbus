@@ -15,6 +15,15 @@ Only tested the Acculevel
 #include <Arduino.h>
 #include <SensorModbusMaster.h>
 
+// The various Keller sensors.
+// NOTE: not presently used but in place for future. See use in https://github.com/EnviroDIY/YosemitechModbus
+typedef enum kellerModel
+{
+    Acculevel = 0,
+    UNKNOWN   // Use if the sensor model is unknown. Doing this is generally a
+              // bad idea, but it can be helpful for doing things like getting
+              // the serial number of an unknown model.
+} kellerModel;
 
 class keller
 {
@@ -35,7 +44,7 @@ public:
     // NOTE: NOT YET WORKING
 //    bool setSlaveID(byte newSlaveID);
 
-    // This gets the instrument serial number as a String
+    // This gets the instrument serial number as a long integer
     long getSerialNumber(void);
 
     // This gets the hardware and software version of the sensor
@@ -50,12 +59,6 @@ public:
 
 
     // This gets values back from the sensor
-    // The float variables for value1 and value2 and the byte for the error
-    // code must be initialized prior to calling this function.
-    // This function is overloaded so you have the option of getting:
-    // 2 values - This will be the parameter and the temperature,
-    //            with the parameter first and the temperature second
-    // 2 values and an error code - As two values, but with error code
     bool getValues(float &valueP1, float &valueTOB1);
 //    bool getValues(float &parmValue, float &tempValue, byte &errorCode);
 
