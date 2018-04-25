@@ -20,9 +20,7 @@ Only tested the Acculevel
 typedef enum kellerModel
 {
     Acculevel = 0,
-    UNKNOWN   // Use if the sensor model is unknown. Doing this is generally a
-              // bad idea, but it can be helpful for doing things like getting
-              // the serial number of an unknown model.
+    OTHER   // Use if the sensor model is another model.
 } kellerModel;
 
 class keller
