@@ -107,15 +107,22 @@ float keller::calcWaterDepthM(float &waterPressureBar, float &waterTempertureC)
     float waterDepthM;     // in m
     const float gravitationalConstant = 9.80665; // m/s2, meters per second squared
 
-    waterPressurePa = 1e5 * waterPressureBar;
-    // Water density (kg/m3) from equation 6 from JonesHarris1992-NIST-DensityWater.pdf
-    waterDensity =  + 999.84847
-                    + 6.337563e-2 * waterTempertureC
-                    - 8.523829e-3 * pow(waterTempertureC,2)
-                    + 6.943248e-5 * pow(waterTempertureC,3)
-                    - 3.821216e-7 * pow(waterTempertureC,4)
-                    ;
-    waterDepthM = waterPressurePa/(waterDensity * gravitationalConstant);  // from P = rho * g * h
+    if (waterPressureBar == -9999)
+    {
+        waterDepthM = -9999;  // error or sensor not connected
+    }
+    else
+    {
+        waterPressurePa = 1e5 * waterPressureBar;
+        // Water density (kg/m3) from equation 6 from JonesHarris1992-NIST-DensityWater.pdf
+        waterDensity =  + 999.84847
+                        + 6.337563e-2 * waterTempertureC
+                        - 8.523829e-3 * pow(waterTempertureC,2)
+                        + 6.943248e-5 * pow(waterTempertureC,3)
+                        - 3.821216e-7 * pow(waterTempertureC,4)
+                        ;
+        waterDepthM = waterPressurePa/(waterDensity * gravitationalConstant);  // from P = rho * g * h
+    }
 
     return waterDepthM;
 }
