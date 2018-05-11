@@ -1,67 +1,28 @@
-# Continuous Integration (CI) is the practice, in software
-# engineering, of merging all developer working copies with a shared mainline
-# several times a day < http://docs.platformio.org/page/ci/index.html >
-#
-# Documentation:
-#
-# * Travis CI Embedded Builds with PlatformIO
-#   < https://docs.travis-ci.com/user/integration/platformio/ >
-#
-# * PlatformIO integration with Travis CI
-#   < http://docs.platformio.org/page/ci/travis.html >
-#
-# * User Guide for `platformio ci` command
-#   < http://docs.platformio.org/page/userguide/cmd_ci.html >
-#
-#
-# Please choice one of the following templates (proposed below) and uncomment
-# it (remove "# " before each line) or use own configuration according to the
-# Travis CI documentation (see above).
-#
+language: python
+python:
+    - "2.7"
+sudo: false
+git:
+  depth: 1
+cache:
+    directories:
+        - "~/.platformio"
 
+env:
+    - PLATFORMIO_CI_SRC=examples/GetValues
 
-#
-# Template #1: General project. Test it using existing `platformio.ini`.
-#
+before_install:
+- git config --global user.email "aaufdenkampe@limno.com"
+- git config --global user.name "aufdenkampe"
 
-# language: python
-# python:
-#     - "2.7"
-#
-# sudo: false
-# cache:
-#     directories:
-#         - "~/.platformio"
-#
-# install:
-#     - pip install -U platformio
-#     - platformio update
-#
-# script:
-#     - platformio run
+install:
+    - git rm library.json
+    - pip install -U platformio
+    - pio upgrade
+    - pio update
+    - pio lib -g install 1824  # SensorModbusMaster
+    - pio lib -g install https://github.com/PaulStoffregen/AltSoftSerial.git  # #73, but need the git until Paul S. has a new release
+    - pio lib -g update
 
-
-#
-# Template #2: The project is intended to by used as a library with examples
-#
-
-# language: python
-# python:
-#     - "2.7"
-#
-# sudo: false
-# cache:
-#     directories:
-#         - "~/.platformio"
-#
-# env:
-#     - PLATFORMIO_CI_SRC=path/to/test/file.c
-#     - PLATFORMIO_CI_SRC=examples/file.ino
-#     - PLATFORMIO_CI_SRC=path/to/test/directory
-#
-# install:
-#     - pip install -U platformio
-#     - platformio update
-#
-# script:
-#     - platformio ci --lib="." --board=ID_1 --board=ID_2 --board=ID_N
+script:
+    - platformio ci --lib="." --project-option="lib_ldf_mode = deep" --board=mayfly
