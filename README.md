@@ -24,6 +24,7 @@ Documentation is licensed as [Creative Commons Attribution-ShareAlike 4.0](https
 [EnviroDIY](http://envirodiy.org/)™ is presented by the Stroud Water Research Center, with contributions from a community of enthusiasts sharing do-it-yourself ideas for environmental science and monitoring.
 
 [Anthony Aufdenakmpe](https://github.com/aufdenkampe) is the primary developer of this library.
+We are grateful for the helpful technical assistance from the staff at [Keller America](https://www.kelleramerica.com). 
 
 This library has benefited from the support from the following funders:
 
