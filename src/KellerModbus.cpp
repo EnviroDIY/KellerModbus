@@ -3,7 +3,7 @@ KellerModbus.cpp
 
 Written by Anthony Aufdenkampe
 
-Only tested the Acculevel
+Tested with Acculevel, Nanolevel (Neil Hancock)
 - a Keller Series 30, Class 5, Group 20 sensor
 - Software version 5.20-12.28 and later (i.e. made after the 2012 in the 28th week)
 
@@ -20,16 +20,17 @@ Only tested the Acculevel
 // This function sets up the communication
 // It should be run during the arduino "setup" function.
 // The "stream" device must be initialized and begun prior to running this.
-bool keller::begin(byte modbusSlaveID, Stream *stream, int enablePin)
+bool keller::begin(kellerModel model,byte modbusSlaveID, Stream *stream, int enablePin)
 {
     // Give values to variables;
     _slaveID = modbusSlaveID;
+    _model = model;
     // Start up the modbus instance
     bool success = modbus.begin(modbusSlaveID, stream, enablePin);
     return success;
 }
-bool keller::begin(byte modbusSlaveID, Stream &stream, int enablePin)
-{return begin(modbusSlaveID, &stream, enablePin);}
+bool keller::begin(kellerModel model,byte modbusSlaveID, Stream &stream, int enablePin)
+{return begin(model,modbusSlaveID, &stream, enablePin);}
 
 
 // This gets the modbus slave ID.
@@ -76,7 +77,15 @@ long keller::getSerialNumber(void)
 //     else return false;
 // }
 
-
+// This gets values back from the sensor
+// Uses Keller Process Value Read Range (0x0100) 32bit floating point,
+// which is Same as 0x0000 .. 0x000B but different mapping for accessing data in one cycle (e.g. P1 and TOB1)
+// P1 is in register 0x0100 & TOB1 (Temperature of sensor1) is in 0x0102
+bool keller::getValueLastTempC(float &value)
+{
+    value =  _LastTOB1;
+    return true;
+}
 // This gets values back from the sensor
 // Uses Keller Process Value Read Range (0x0100) 32bit floating point,
 // which is Same as 0x0000 .. 0x000B but different mapping for accessing data in one cycle (e.g. P1 and TOB1)
@@ -89,14 +98,27 @@ bool keller::getValues(float &valueP1, float &valueTOB1)
 
     // valueP1 = modbus.float32FromRegister(0x03, 0x0100);
     // valueTOB1 = modbus.float32FromRegister(0x03, 0x0102);
-
+    if (Nanolevel_kellerModel == _model ) 
+    {
+        if (modbus.getRegisters(0x03, 0x0002, 2))
+        {
+            valueP1 = modbus.float32FromFrame(bigEndian, 3);
+            if (modbus.getRegisters(0x03, 0x0006, 2))
+            {
+               valueTOB1 = modbus.float32FromFrame(bigEndian, 3);
+            } else return false;
+            //return true;
+        }
+        else return false;
+    } else 
     if (modbus.getRegisters(0x03, 0x0100, 4))
     {
         valueP1 = modbus.float32FromFrame(bigEndian, 3);
         valueTOB1 = modbus.float32FromFrame(bigEndian, 7);
-        return true;
     }
     else return false;
+    _LastTOB1 = valueTOB1;
+    return true;
 }
 
 float keller::calcWaterDepthM(float &waterPressureBar, float &waterTempertureC)

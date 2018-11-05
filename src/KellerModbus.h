@@ -1,9 +1,9 @@
 /*
 KellerModbus.h
 
-Written by Anthony Aufdenkampe
+Written by Anthony Aufdenkampe Modified Neil Hancock
 
-Only tested the Acculevel
+Tested with Acculevel, Nanolevel
 - a Keller Series 30, Class 5, Group 20 sensor
 - Software version 5.20-12.28 and later (i.e. made after the 2012 in the 28th week)
 
@@ -20,6 +20,7 @@ Only tested the Acculevel
 typedef enum kellerModel
 {
     Acculevel = 0,
+    Nanolevel_kellerModel = 1,
     OTHER   // Use if the sensor model is another model.
 } kellerModel;
 
@@ -31,8 +32,8 @@ public:
     // This function sets up the communication
     // It should be run during the arduino "setup" function.
     // The "stream" device must be initialized prior to running this.
-    bool begin(byte modbusSlaveID, Stream *stream, int enablePin = -1);
-    bool begin(byte modbusSlaveID, Stream &stream, int enablePin = -1);
+    bool begin(kellerModel model,byte modbusSlaveID, Stream *stream, int enablePin = -1);
+    bool begin(kellerModel model,byte modbusSlaveID, Stream &stream, int enablePin = -1);
 
     // This gets the modbus slave ID.
     // NOTE: NOT YET WORKING
@@ -58,6 +59,7 @@ public:
 
     // This gets values back from the sensor
     bool getValues(float &valueP1, float &valueTOB1);
+    bool getValueLastTempC(float &value);
 //    bool getValues(float &parmValue, float &tempValue, byte &errorCode);
 
     float calcWaterDepthM(float &waterPressureBar, float &waterTempertureC);
@@ -68,8 +70,10 @@ public:
 
 
 private:
-
+    byte _model;
     byte _slaveID;
+    float _LastTOB1;
+
     modbusMaster modbus;
 };
 
