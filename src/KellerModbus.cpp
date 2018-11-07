@@ -107,7 +107,6 @@ bool keller::getValues(float &valueP1, float &valueTOB1)
             {
                valueTOB1 = modbus.float32FromFrame(bigEndian, 3);
             } else return false;
-            //return true;
         }
         else return false;
     } else 
