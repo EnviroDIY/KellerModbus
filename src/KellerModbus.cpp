@@ -77,10 +77,7 @@ long keller::getSerialNumber(void)
 //     else return false;
 // }
 
-// This gets values back from the sensor
-// Uses Keller Process Value Read Range (0x0100) 32bit floating point,
-// which is Same as 0x0000 .. 0x000B but different mapping for accessing data in one cycle (e.g. P1 and TOB1)
-// P1 is in register 0x0100 & TOB1 (Temperature of sensor1) is in 0x0102
+// This returns previously fetched value
 bool keller::getValueLastTempC(float &value)
 {
     value =  _LastTOB1;
@@ -100,6 +97,7 @@ bool keller::getValues(float &valueP1, float &valueTOB1)
     // valueTOB1 = modbus.float32FromRegister(0x03, 0x0102);
     if (Nanolevel_kellerModel == _model ) 
     {
+        // This gets two values, but as seperate messages
         if (modbus.getRegisters(0x03, 0x0002, 2))
         {
             valueP1 = modbus.float32FromFrame(bigEndian, 3);
@@ -109,13 +107,14 @@ bool keller::getValues(float &valueP1, float &valueTOB1)
             } else return false;
         }
         else return false;
-    } else 
+    } else // for all other sensors get two values in one message
     if (modbus.getRegisters(0x03, 0x0100, 4))
     {
         valueP1 = modbus.float32FromFrame(bigEndian, 3);
         valueTOB1 = modbus.float32FromFrame(bigEndian, 7);
     }
     else return false;
+
     _LastTOB1 = valueTOB1;
     return true;
 }
