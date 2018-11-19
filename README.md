@@ -1,10 +1,10 @@
 # KellerModbus
-A library to use an Arduino as a master to control and communicate via modbus with the pressure and water level sensors produced by Keller International & [Keller America](https://www.kelleramerica.com). 
+A library to use an Arduino as a master to control and communicate via modbus with the pressure and water level sensors produced by Keller International & [Keller America](https://www.kelleramerica.com).
 
 This library depends on the [EnviroDIY/SensorModbusMaster](https://github.com/EnviroDIY/SensorModbusMaster) library.
 The [EnviroDIY/ModularSensor](https://github.com/EnviroDIY/ModularSensors) library functions for Keller depend on this library.
 
-The library has been tested to work with a Keller Acculevel, which is a Keller Series 30, Class 5, Group 20 sensor water level transmitter with a software/firmware version of 5.20-12.28 (i.e. made after the 2012 in the 28th week). The library should also work with all Keller sensors of the same Series/Class/Group with the same or a later software version.
+The library has been tested to work with a Keller Nanolevel and a Keller Acculevel, which is a Keller Series 30, Class 5, Group 20 sensor water level transmitter with a software/firmware version of 5.20-12.28 (i.e. made after the 2012 in the 28th week). The library should also work with all Keller sensors of the same Series/Class/Group with the same or a later software version.
 
 ## <a name="functions"></a>Functions
 
@@ -24,7 +24,7 @@ Documentation is licensed as [Creative Commons Attribution-ShareAlike 4.0](https
 [EnviroDIY](http://envirodiy.org/)™ is presented by the Stroud Water Research Center, with contributions from a community of enthusiasts sharing do-it-yourself ideas for environmental science and monitoring.
 
 [Anthony Aufdenakmpe](https://github.com/aufdenkampe) is the primary developer of this library.
-We are grateful for the helpful technical assistance from the staff at [Keller America](https://www.kelleramerica.com). 
+We are grateful for the helpful technical assistance from the staff at [Keller America](https://www.kelleramerica.com).
 
 This library has benefited from the support from the following funders:
 

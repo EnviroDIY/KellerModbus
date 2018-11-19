@@ -22,6 +22,9 @@ For testing individual functions in KellerModbus library
 //   ie, pin locations, addresses, calibrations and related settings
 // ---------------------------------------------------------------------------
 
+// Define the sensor type
+kellerModel model = KellerAcculevel;
+
 // Define the sensor's modbus address
 byte modbusAddress = 0x01;  // The sensor's modbus address, or SlaveID
 // Keller defines the following:
@@ -72,7 +75,7 @@ void setup()
     modbusSerial.begin(9600);  // The modbus serial stream - Baud rate MUST be 9600.
 
     // Start up the modbus sensor
-    sensor.begin(modbusAddress, &modbusSerial, DEREPin);  // bool begin(byte modbusSlaveID, Stream *stream, int enablePin = -1);
+    sensor.begin(model, modbusAddress, &modbusSerial, DEREPin);
 
     // Turn on debugging
     // sensor.setDebugStream(&Serial);

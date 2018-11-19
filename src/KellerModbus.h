@@ -19,8 +19,8 @@ Tested with Acculevel, Nanolevel
 // NOTE: not presently used but in place for future. See use in https://github.com/EnviroDIY/YosemitechModbus
 typedef enum kellerModel
 {
-    Acculevel = 0,
-    Nanolevel_kellerModel = 1,
+    KellerAcculevel = 0,
+    KellerNanolevel = 1,
     OTHER   // Use if the sensor model is another model.
 } kellerModel;
 
@@ -32,8 +32,8 @@ public:
     // This function sets up the communication
     // It should be run during the arduino "setup" function.
     // The "stream" device must be initialized prior to running this.
-    bool begin(kellerModel model,byte modbusSlaveID, Stream *stream, int enablePin = -1);
-    bool begin(kellerModel model,byte modbusSlaveID, Stream &stream, int enablePin = -1);
+    bool begin(kellerModel model, byte modbusSlaveID, Stream *stream, int enablePin = -1);
+    bool begin(kellerModel model, byte modbusSlaveID, Stream &stream, int enablePin = -1);
 
     // This gets the modbus slave ID.
     // NOTE: NOT YET WORKING

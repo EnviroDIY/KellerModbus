@@ -93,28 +93,34 @@ bool keller::getValues(float &valueP1, float &valueTOB1)
     valueP1   = -9999;  // Pressure (bar) for sensor1
     valueTOB1 = -9999;  // Temperature (C) on board sensor 1
 
-    // valueP1 = modbus.float32FromRegister(0x03, 0x0100);
-    // valueTOB1 = modbus.float32FromRegister(0x03, 0x0102);
-    if (Nanolevel_kellerModel == _model ) 
+    switch(_model)
     {
-        // This gets two values, but as seperate messages
-        if (modbus.getRegisters(0x03, 0x0002, 2))
+        case KellerNanolevel:  // This gets two values, but as seperate messages
         {
-            valueP1 = modbus.float32FromFrame(bigEndian, 3);
-            if (modbus.getRegisters(0x03, 0x0006, 2))
+            if (modbus.getRegisters(0x03, 0x0002, 2))
             {
-               valueTOB1 = modbus.float32FromFrame(bigEndian, 3);
-            } else return false;
+                valueP1 = modbus.float32FromFrame(bigEndian, 3);
+                if (modbus.getRegisters(0x03, 0x0006, 2))
+                {
+                   valueTOB1 = modbus.float32FromFrame(bigEndian, 3);
+                   break;
+                }
+                else return false;
+            }
+            else return false;
         }
-        else return false;
-    } else // for all other sensors get two values in one message
-    if (modbus.getRegisters(0x03, 0x0100, 4))
-    {
-        valueP1 = modbus.float32FromFrame(bigEndian, 3);
-        valueTOB1 = modbus.float32FromFrame(bigEndian, 7);
+        default:  // for all other sensors get two values in one message
+        {
+            if (modbus.getRegisters(0x03, 0x0100, 4))
+            {
+                valueP1 = modbus.float32FromFrame(bigEndian, 3);
+                valueTOB1 = modbus.float32FromFrame(bigEndian, 7);
+                break;
+            }
+            else return false;
+        }
     }
-    else return false;
-
+    
     _LastTOB1 = valueTOB1;
     return true;
 }
