@@ -23,7 +23,7 @@ For testing individual functions in KellerModbus library
 // ---------------------------------------------------------------------------
 
 // Define the sensor type
-kellerModel model = KellerAcculevel;
+kellerModel model = Acculevel_kellerModel;
 
 // Define the sensor's modbus address
 byte modbusAddress = 0x01;  // The sensor's modbus address, or SlaveID

@@ -19,8 +19,8 @@ Tested with Acculevel, Nanolevel
 // NOTE: not presently used but in place for future. See use in https://github.com/EnviroDIY/YosemitechModbus
 typedef enum kellerModel
 {
-    KellerAcculevel = 0,
-    KellerNanolevel = 1,
+    Acculevel_kellerModel = 0,
+    Nanolevel_kellerModel = 1,
     OTHER   // Use if the sensor model is another model.
 } kellerModel;
 

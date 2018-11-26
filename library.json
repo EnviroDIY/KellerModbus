@@ -1,6 +1,6 @@
 {
   "name": "KellerModbus",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "keywords": "Keller, Modbus, communication, bus, sensor, water level, pressure",
   "description": "Arduino library for communication with Keller pressure and water level sensors via Modbus.",
   "repository":

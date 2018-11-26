@@ -95,7 +95,7 @@ bool keller::getValues(float &valueP1, float &valueTOB1)
 
     switch(_model)
     {
-        case KellerNanolevel:  // This gets two values, but as seperate messages
+        case Nanolevel_kellerModel:  // This gets two values, but as seperate messages
         {
             if (modbus.getRegisters(0x03, 0x0002, 2))
             {
