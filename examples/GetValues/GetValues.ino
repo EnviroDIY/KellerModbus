@@ -30,15 +30,16 @@ byte modbusAddress = 0x01;  // The sensor's modbus address, or SlaveID
 // Keller defines the following:
 //   Address 0 is reserved for broadcasting.
 //   Addresses 1 (default) ...249 can be used for bus mode.
-//   Address 250 is transparent and reserved for non-bus mode. Every device can be contacted with this address.
-//   Addresses 251...255 are reserved for subsequent developments.
+//   Address 250 is transparent and reserved for non-bus mode. Every device can be
+//   contacted with this address. Addresses 251...255 are reserved for subsequent
+//   developments.
 
 // Define pin number variables
-const int PwrPin = 22;  // The pin sending power to the sensor *AND* RS485 adapter
-const int DEREPin = -1;   // The pin controlling Recieve Enable and Driver Enable
-                          // on the RS485 adapter, if applicable (else, -1)
-                          // Setting HIGH enables the driver (arduino) to send text
-                          // Setting LOW enables the receiver (sensor) to send text
+const int PwrPin  = 22;  // The pin sending power to the sensor *AND* RS485 adapter
+const int DEREPin = -1;  // The pin controlling Recieve Enable and Driver Enable
+                         // on the RS485 adapter, if applicable (else, -1)
+                         // Setting HIGH enables the driver (arduino) to send text
+                         // Setting LOW enables the receiver (sensor) to send text
 
 // Construct software serial object for Modbus
 AltSoftSerial modbusSerial;  // On Mayfly, requires connection D5 & D6
@@ -46,9 +47,9 @@ AltSoftSerial modbusSerial;  // On Mayfly, requires connection D5 & D6
 // Construct the modbus instance
 modbusMaster modbus;
 
-// Construct the Keller modbus instance
+// Construct the KellerModbus instance
 keller sensor;
-bool success;
+bool   success;
 
 
 // ---------------------------------------------------------------------------
@@ -63,15 +64,13 @@ bool success;
 // ---------------------------------------------------------------------------
 // Main setup function
 // ---------------------------------------------------------------------------
-void setup()
-{
-
+void setup() {
     pinMode(PwrPin, OUTPUT);
     digitalWrite(PwrPin, HIGH);
 
     if (DEREPin > 0) pinMode(DEREPin, OUTPUT);
 
-    Serial.begin(57600);  // Main serial port for debugging via USB Serial Monitor
+    Serial.begin(57600);       // Main serial port for debugging via USB Serial Monitor
     modbusSerial.begin(9600);  // The modbus serial stream - Baud rate MUST be 9600.
 
     // Start up the modbus sensor
@@ -95,16 +94,16 @@ void setup()
     Serial.println("Starting sensor measurements");
 
     Serial.println("Allowing sensor to stabilize..");
-    for (int i = 5; i > 0; i--)     // 4 second delay
+    for (int i = 5; i > 0; i--)  // 4 second delay
     {
         Serial.print(i);
-        delay (250);
+        delay(250);
         Serial.print(".");
-        delay (250);
+        delay(250);
         Serial.print(".");
-        delay (250);
+        delay(250);
         Serial.print(".");
-        delay (250);
+        delay(250);
     }
     Serial.println("\n");
 
@@ -112,21 +111,22 @@ void setup()
     Serial.print("Pressure(bar)  ");
     Serial.print("Depth (mWC)");
     Serial.println();
-
 }
 
 // Initialize variables
 float waterPressureBar = -9999.0;
 float waterTempertureC = -9999.0;
-float waterDepthM = -9999.0;
+float waterDepthM      = -9999.0;
 
 // ---------------------------------------------------------------------------
 // Main loop function
 // ---------------------------------------------------------------------------
-void loop()
-{
+void loop() {
     sensor.getValues(waterPressureBar, waterTempertureC);
-    waterDepthM = sensor.calcWaterDepthM(waterPressureBar, waterTempertureC);  // float calcWaterDepthM(float waterPressureBar, float waterTempertureC)
+    waterDepthM = sensor.calcWaterDepthM(
+        waterPressureBar,
+        waterTempertureC);  // float calcWaterDepthM(float waterPressureBar, float
+                            // waterTempertureC)
 
     Serial.print(waterTempertureC);
     Serial.print("      ");
@@ -136,5 +136,4 @@ void loop()
     Serial.println();
 
     delay(1500);
-
 }
