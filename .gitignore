@@ -17,6 +17,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Microsoft Office temp files
+~$*
+
 # =========================
 # Operating System Files
 # =========================
@@ -50,15 +53,14 @@ Temporary Items
 .idea/
 
 # Atom / PlatformIO
+.pio
 .pioenvs
 .piolibdeps
 .clang_complete
 .gcc-flags.json
 lib/readme.txt
-platformio.ini
+/platformio.ini
 .history
-.pio
-.vscode
 
 # Prerequisites
 *.d
@@ -92,3 +94,17 @@ platformio.ini
 *.exe
 *.out
 *.app
+
+# VS Code
+.vscode
+compile_commands.json
+.history
+pioScripts
+runDoxygen.bat
+output_doxygen.log
+output_doxygen_run.log
+output_mcss_run.log
+output_mcss.log
+docs/output_copyFunctions.log
+docs/output_documentExamples.log
+docs/output_fixSectionsInXml.log
