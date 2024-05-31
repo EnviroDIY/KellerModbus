@@ -177,13 +177,13 @@ class keller {
      * @param stream An Arduino stream object
      */
     void setDebugStream(Stream* stream) {
-        _debugStream = stream;
+        modbus.setDebugStream(stream);
     }
     /**
      * @copydoc keller::setDebugStream(Stream* stream)
      */
     void setDebugStream(Stream& stream) {
-        _debugStream = &stream;
+        modbus.setDebugStream(stream);
     }
 
     /**
