@@ -1,12 +1,13 @@
-/*****************************************************************************
-Keller/GetValues.ino
-
-Modified by Anthony Aufdenkampe, from YosemitechModbus/GetValues.ino
-2018-April
-
-For testing individual functions in KellerModbus library
-
-*****************************************************************************/
+/** =========================================================================
+ * @file GetValues.ino
+ * @author Sara Geleskie Damiano <sdamiano@stroudcenter.org>
+ * @copyright Stroud Water Research Center
+ * This example is published under the BSD-3 license.
+ *
+ * @brief For testing individual functions in KellerModbus library.
+ *
+ * Modified by Anthony Aufdenkampe, from YosemitechModbus/GetValues.ino 2018-April
+ * ======================================================================= */
 
 // ---------------------------------------------------------------------------
 // Include the base required libraries
