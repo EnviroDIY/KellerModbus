@@ -1,32 +1,37 @@
 /** =========================================================================
- * @file GetValues.ino
- * @author Sara Geleskie Damiano <sdamiano@stroudcenter.org>
+ * @example{lineno} GetValues.ino
+ * @author Anthony Aufdenkampe
  * @copyright Stroud Water Research Center
- * This example is published under the BSD-3 license.
+ * @license This example is published under the BSD-3 license.
  *
  * @brief For testing individual functions in KellerModbus library.
- *
- * Modified by Anthony Aufdenkampe, from YosemitechModbus/GetValues.ino 2018-April
+ * - 2018-April initially based on YosemitechModbus/GetValues.ino
+ * - 2024-04-16 update on latest YosemitechModbus/examples/GetValues/GetValues.ino
  * ======================================================================= */
 
 // ---------------------------------------------------------------------------
 // Include the base required libraries
 // ---------------------------------------------------------------------------
 #include <Arduino.h>
-#include <AltSoftSerial.h>
-#include <SensorModbusMaster.h>
 #include "KellerModbus.h"
 
+#include <AltSoftSerial.h>
 
-// ---------------------------------------------------------------------------
-// Set up the sensor specific information
-//   ie, pin locations, addresses, calibrations and related settings
-// ---------------------------------------------------------------------------
+// Turn on debugging outputs (i.e. raw Modbus requests & responsds)
+// by uncommenting next line (i.e. `#define DEBUG`)
+#define DEBUG
 
+
+// ==========================================================================
+//  Sensor Settings
+// ==========================================================================
 // Define the sensor type
 kellerModel model = Acculevel_kellerModel;
 
-// Define the sensor's modbus address
+// Define the sensor's modbus address, or SlaveID
+// NOTE: Many user manuals present SlaveID as an integer (decimal),
+// whereas EnviroDIY and most other modbus systems present it in hexadecimal form.
+// Use an online "HEX to DEC Converter".
 byte modbusAddress = 0x01;  // The sensor's modbus address, or SlaveID
 // Keller defines the following:
 //   Address 0 is reserved for broadcasting.
@@ -53,7 +58,7 @@ keller sensor;
 bool   success;
 
 
-// ---------------------------------------------------------------------------
+// ==========================================================================
 // Working Functions
 // ---------------------------------------------------------------------------
 
@@ -77,21 +82,44 @@ void setup() {
     // Start up the modbus sensor
     sensor.begin(model, modbusAddress, &modbusSerial, DEREPin);
 
-    // Turn on debugging
-    // sensor.setDebugStream(&Serial);
+// Turn on debugging
+#ifdef DEBUG
+    sensor.setDebugStream(&Serial);
+#endif
 
     // Start up note
     Serial.println("Keller Acculevel (or other Series 30, Class 5, Group 20 sensor)");
 
-    Serial.println("Waiting for sensor and adapter to be ready.");
-    delay(500);
+    // Allow the sensor and converter to warm up
+    Serial.println("\nWaiting for sensor and adapter to be ready.");
+    Serial.print("    Warm up time (ms): ");
+    Serial.println(WARM_UP_TIME);
+    delay(WARM_UP_TIME);
 
-    Serial.print("Device Address, as integer: ");
-    Serial.println(sensor.getSlaveID());
+    // Confirm Modbus Address
+    Serial.println("\nSelected modbus address:");
+    Serial.print("    integer: ");
+    Serial.print(modbusAddress, DEC);
+    Serial.print(", hexidecimal: ");
+    Serial.println(sensorLocation(modbusAddress));
 
-    Serial.print("Serial Number: ");
-    Serial.println(sensor.getSerialNumber());
+    Serial.println("Discovered modbus address.");
+    Serial.print("    integer: ");
+    byte id = sensor.getSlaveID();
+    Serial.print(id, DEC);
+    Serial.print(", hexidecimal: ");
+    // Serial.print(id, HEX);
+    Serial.println(sensorLocation(id));
 
+    // Get the sensor serial number
+    Serial.println("\nGetting sensor serial number.");
+    long SN = sensor.getSerialNumber();
+    Serial.print("    Serial Number: ");
+    Serial.println(SN);
+
+    // Get the sensor's hardware and software version
+    // NOT YET IMPLEMENTED. See KellerTest.ino for work in progress
+    // Tell the sensor to start taking measurements
     Serial.println("Starting sensor measurements");
 
     Serial.println("Allowing sensor to stabilize..");
@@ -108,6 +136,7 @@ void setup() {
     }
     Serial.println("\n");
 
+    // Print table headers
     Serial.print("Temp(°C)  ");
     Serial.print("Pressure(bar)  ");
     Serial.print("Depth (mWC)");
@@ -129,6 +158,7 @@ void loop() {
         waterTempertureC);  // float calcWaterDepthM(float waterPressureBar, float
                             // waterTempertureC)
 
+    // Print values
     Serial.print(waterTempertureC);
     Serial.print("      ");
     Serial.print(waterPressureBar, 7);

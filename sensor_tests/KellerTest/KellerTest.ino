@@ -1,11 +1,16 @@
 /*****************************************************************************
 KellerTest.ino
 
-Modified by Anthony Aufdenkampe, from YosemitechModbus/GetValues.ino
-2018-April
+By Anthony Aufdenkampe, 
+- 2018-April initially based on YosemitechModbus/GetValues.ino
+- 2024-04-16 update based on GroPointModbus/extras/ChangeParity/ChangeParity.ino
 
 For testing Keller functionality
-Does not use functions in the KellerModbus library
+
+This sketch does not depend on the KellerModbus library, but only on the
+SensorModbusMaster library and is based on it's example sketch:
+SensorModbusMaster/examples/readWriteRegister/readWriteRegister.ino
+
 
 *****************************************************************************/
 
@@ -16,22 +21,46 @@ Does not use functions in the KellerModbus library
 #include <AltSoftSerial.h>
 #include <SensorModbusMaster.h>
 
+// Turn on debugging outputs (i.e. raw Modbus requests & responsds)
+// by uncommenting next line (i.e. `#define DEBUG`)
+#define DEBUG
 
-// ---------------------------------------------------------------------------
-// Set up the sensor specific information
-//   ie, pin locations, addresses, calibrations and related settings
-// ---------------------------------------------------------------------------
 
-// Define the sensor's modbus address
-byte modbusAddress = 0x01;  // The sensor's modbus address, or SlaveID
+// ==========================================================================
+//  Sensor Settings
+// ==========================================================================
+
+// Define the sensor's modbus address, or SlaveID
+// NOTE: Many user manuals present SlaveID and registers as decimal
+// integers, whereas EnviroDIY and most other modbus systems present it in
+// hexadecimal form. Use an online "HEX to DEC Converter".
+byte defaultModbusAddress = 0x01;  // Keller ships sensors with a default ID of 0x01
 // Keller defines the following:
 //   Address 0 is reserved for broadcasting.
 //   Addresses 1 (default) ...249 can be used for bus mode.
 //   Address 250 is transparent and reserved for non-bus mode. Every device can be contacted with this address.
 //   Addresses 251...255 are reserved for subsequent developments.
 
+// The Modbus baud rate the sensor uses
+int32_t modbusBaud     = 9600;  // 9600 baud is the default for Yosemitech & Keller.
+
+
+// Sensor Timing. Edit these to explore!
+#define WARM_UP_TIME 350  // milliseconds for sensor to respond to commands.
+
+#define STABILIZATION_TIME 100  // milliseconds for readings to stablize.
+
+#define MEASUREMENT_TIME 200  // milliseconds to complete a measurement.
+
+
+// ==========================================================================
+//  Data Logging Options
+// ==========================================================================
+const int32_t serialBaud = 115200;  // Baud rate for serial monitor
+
 // Define pin number variables
-const int PwrPin = 22;  // The pin sending power to the sensor *AND* RS485 adapter
+const int sensorPwrPin = 10;  // The pin sending power to the sensor
+const int adapterPwrPin = 22; // The pin sending power to the RS485 adapter
 const int DEREPin = -1;   // The pin controlling Recieve Enable and Driver Enable
                           // on the RS485 adapter, if applicable (else, -1)
                           // Setting HIGH enables the driver (arduino) to send text
@@ -40,32 +69,42 @@ const int DEREPin = -1;   // The pin controlling Recieve Enable and Driver Enabl
 // Construct software serial object for Modbus
 AltSoftSerial modbusSerial;  // On Mayfly, requires connection D5 & D6
 
-// Construct the modbus instance
+// Construct a SensorModbusMaster class instance, from
+// https://github.com/EnviroDIY/SensorModbusMaster
 modbusMaster modbus;
 
 
-// ---------------------------------------------------------------------------
+// ==========================================================================
 // Working Functions
-// ---------------------------------------------------------------------------
+// ==========================================================================
+
+// A function for pretty-printing the Modbuss Address in Hexadecimal notation,
+// from ModularSensors `sensorLocation()`
+String prettyprintAddressHex(byte _modbusAddress) {
+    String addressHex = F("0x");
+    if (_modbusAddress < 0x10) addressHex += "0";
+    addressHex += String(_modbusAddress, HEX);
+    return addressHex;
+}
 
 // Give values to variables;
-byte modbusSlaveID = modbusAddress;
+byte modbusSlaveID = defaultModbusAddress;
 byte _slaveID = modbusSlaveID;
 
-
-int getSlaveID(void)
-{
-    return modbus.byteFromRegister(0x03, 0x020D, 2); // byte byteFromRegister(byte regType, int regNum, int byteNum)
-
+// Get modbus slave ID or Sensor Modbus Address
+byte getSensorAddress(void) {
+    return modbus.byteFromRegister(0x03, 0x020D, 2); 
+    // byte byteFromRegister(byte regType, int regNum, int byteNum)
 }
 
-long getSerialNumber(void)
-{
-    return modbus.uint32FromRegister(0x03, 0x0202); // uint32_t uint32FromRegister(byte regType, int regNum, endianness endian=bigEndian);
+// Get sensor serial number
+long getSerialNumber(void) {
+    return modbus.uint32FromRegister(0x03, 0x0202); 
+    // uint32_t uint32FromRegister(byte regType, int regNum, endianness endian=bigEndian);
 }
 
-float calcWaterDepthM(float waterPressureBar, float waterTempertureC)
-{
+// Calculate water depth from pressure and temperature
+float calcWaterDepthM(float waterPressureBar, float waterTempertureC) {
     /// Initialize variables
     float waterPressurePa;
     float waterDensity;
@@ -86,37 +125,70 @@ float calcWaterDepthM(float waterPressureBar, float waterTempertureC)
 }
 
 
-// ---------------------------------------------------------------------------
-// Main setup function
-// ---------------------------------------------------------------------------
-void setup()
-{
+// ==========================================================================
+//  Arduino Setup Function
+// ==========================================================================
+void setup() {
 
-    pinMode(PwrPin, OUTPUT);
-    digitalWrite(PwrPin, HIGH);
+    // Setup power pins
+    if (sensorPwrPin > 0) {
+        pinMode(sensorPwrPin, OUTPUT);
+        digitalWrite(sensorPwrPin, HIGH);
+    }
+    if (adapterPwrPin > 0) {
+        pinMode(adapterPwrPin, OUTPUT);
+        digitalWrite(adapterPwrPin, HIGH);
+    }
+    if (DEREPin > 0) {
+        pinMode(DEREPin, OUTPUT);
+    }
 
-    if (DEREPin > 0) pinMode(DEREPin, OUTPUT);
+    // Turn on the "main" serial port for debugging via USB Serial Monitor
+    Serial.begin(serialBaud);
 
-    Serial.begin(57600);  // Main serial port for debugging via USB Serial Monitor
-    modbusSerial.begin(9600);  // The modbus serial stream - Baud rate MUST be 9600.
+    // Turn on your modbus serial port
+    modbusSerial.begin(modbusBaud);  // The modbus serial stream - Baud rate MUST be 9600.
 
-    // Start up the modbus sensor
-    modbus.begin(modbusAddress, &modbusSerial, DEREPin);
+    // Setup the modbus instance
+    modbus.begin(defaultModbusAddress, modbusSerial, DEREPin);
 
     // Turn on debugging
-    //modbus.setDebugStream(&Serial);
+    #ifdef DEBUG
+        modbus.setDebugStream(&Serial);
+    #endif
 
     // Start up note
-    Serial.println("Keller Acculevel (or other Series 30, Class 5, Group 20 sensor)");
+    Serial.println("\nChange Parity utility for GroPoint Profile sensors ");
+
+    // Allow the sensor and converter to warm up
     Serial.println("Waiting for sensor and adapter to be ready.");
-    delay(500);
+    Serial.print("  Warm up time (ms): ");
+    Serial.println(WARM_UP_TIME);
+    Serial.println();
+    delay(WARM_UP_TIME);
 
-    Serial.print("Device Address, as integer: ");
-    Serial.println(getSlaveID());
+    // Confirm Modbus Address
+    Serial.println("Default modbus address:");
+    Serial.print("  integer: ");
+    Serial.print(defaultModbusAddress, DEC);
+    Serial.print(", hexidecimal: ");
+    Serial.println(prettyprintAddressHex(defaultModbusAddress));
+    Serial.println();
 
+    // Read Sensor Modbus Address
+    Serial.println("Get sensor modbus address.");
+    byte id = getSensorAddress();
+    Serial.print("  integer: ");
+    Serial.print(id, DEC);
+    Serial.print(", hexidecimal: ");
+    Serial.println(prettyprintAddressHex(id));
+    Serial.println();
+
+    // Get Sensor Serial Number
     Serial.print("Serial Number: ");
     Serial.println(getSerialNumber());
 
+    // Get Sensor Firmware Version
     Serial.print("Firmware Version: ");
     Serial.print(modbus.byteFromRegister(0x03, 0x020E, 1));
     Serial.print(".");
@@ -159,6 +231,6 @@ void loop()
     Serial.println(waterDepthM, 8);
 
 
-    delay(3000);
-
+    // Delay between readings
+    delay(MEASUREMENT_TIME);
 }
