@@ -7,6 +7,9 @@
  * @brief For testing individual functions in KellerModbus library.
  * - 2018-April initially based on YosemitechModbus/GetValues.ino
  * - 2024-04-16 update on latest YosemitechModbus/examples/GetValues/GetValues.ino
+ *
+ * @m_examplenavigation{example_get_values,}
+ * @m_footernavigation
  * ======================================================================= */
 
 // ---------------------------------------------------------------------------

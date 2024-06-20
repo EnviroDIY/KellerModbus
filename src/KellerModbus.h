@@ -1,4 +1,3 @@
-
 /**
  * @file KellerModbus.h
  * @copyright Stroud Water Research Center

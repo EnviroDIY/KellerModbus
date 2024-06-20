@@ -1,12 +1,12 @@
-# Examples Using KellerModbus<!-- {#page_the_examples} -->
+# Examples using the Keller Library<!-- {#page_the_examples} -->
 
-These example programs demonstrate how to use the KellerModbus library.
+These example programs demonstrate how to use the Keller Modbus library.
 
 ___
 
 [//]: # ( Start GitHub Only )
 
-- [Examples Using KellerModbus](#examples-using-kellermodbus)
+- [Examples using the Keller Library](#examples-using-the-keller-library)
   - [Getting Sensor Values](#getting-sensor-values)
 
 [//]: # ( End GitHub Only )
@@ -19,5 +19,7 @@ ___
 
 This example gets values from and tests other functions of the Keller Modbus library.
 
-- [Instructions for the get values](https://envirodiy.github.io/KellerModbus/example_get_values.html)
+- [Instructions for the get values example](https://envirodiy.github.io/KellerModbus/example_get_values.html)
 - [The get values example on GitHub](https://github.com/EnviroDIY/KellerModbus/tree/master/examples/GetValues)
+
+[//]: # ( @m_innerpage{example_get_values} )
