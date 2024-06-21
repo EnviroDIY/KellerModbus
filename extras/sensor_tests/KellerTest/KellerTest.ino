@@ -1,18 +1,20 @@
-/*****************************************************************************
-KellerTest.ino
-
-By Anthony Aufdenkampe, 
-- 2018-April initially based on YosemitechModbus/GetValues.ino
-- 2024-04-16 update based on GroPointModbus/extras/ChangeParity/ChangeParity.ino
-
-For testing Keller functionality
-
-This sketch does not depend on the KellerModbus library, but only on the
-SensorModbusMaster library and is based on it's example sketch:
-SensorModbusMaster/examples/readWriteRegister/readWriteRegister.ino
-
-
-*****************************************************************************/
+/** =========================================================================
+ * @example{lineno} KellerTest.ino
+ * @author Anthony Aufdenkampe
+ * @license This example is published under the BSD-3 license.
+ *
+ * @brief For testing Keller functionality
+ *
+ * - 2018-April initially based on YosemitechModbus/GetValues.ino
+ * - 2024-04-16 update based on GroPointModbus/extras/ChangeParity/ChangeParity.ino
+ *
+ * This sketch does not depend on the KellerModbus library, but only on the
+ * SensorModbusMaster library and is based on it's example sketch:
+ * SensorModbusMaster/examples/readWriteRegister/readWriteRegister.ino.
+ *
+ * @m_examplenavigation{example_get_values,}
+ * @m_footernavigation
+ *****************************************************************************/
 
 // ---------------------------------------------------------------------------
 // Include the base required libraries
@@ -38,11 +40,12 @@ byte defaultModbusAddress = 0x01;  // Keller ships sensors with a default ID of 
 // Keller defines the following:
 //   Address 0 is reserved for broadcasting.
 //   Addresses 1 (default) ...249 can be used for bus mode.
-//   Address 250 is transparent and reserved for non-bus mode. Every device can be contacted with this address.
-//   Addresses 251...255 are reserved for subsequent developments.
+//   Address 250 is transparent and reserved for non-bus mode. Every device can be
+//   contacted with this address. Addresses 251...255 are reserved for subsequent
+//   developments.
 
 // The Modbus baud rate the sensor uses
-int32_t modbusBaud     = 9600;  // 9600 baud is the default for Yosemitech & Keller.
+int32_t modbusBaud = 9600;  // 9600 baud is the default for Yosemitech & Keller.
 
 
 // Sensor Timing. Edit these to explore!
@@ -59,12 +62,12 @@ int32_t modbusBaud     = 9600;  // 9600 baud is the default for Yosemitech & Kel
 const int32_t serialBaud = 115200;  // Baud rate for serial monitor
 
 // Define pin number variables
-const int sensorPwrPin = 10;  // The pin sending power to the sensor
-const int adapterPwrPin = 22; // The pin sending power to the RS485 adapter
-const int DEREPin = -1;   // The pin controlling Recieve Enable and Driver Enable
-                          // on the RS485 adapter, if applicable (else, -1)
-                          // Setting HIGH enables the driver (arduino) to send text
-                          // Setting LOW enables the receiver (sensor) to send text
+const int sensorPwrPin  = 10;  // The pin sending power to the sensor
+const int adapterPwrPin = 22;  // The pin sending power to the RS485 adapter
+const int DEREPin       = -1;  // The pin controlling Recieve Enable and Driver Enable
+                               // on the RS485 adapter, if applicable (else, -1)
+                               // Setting HIGH enables the driver (arduino) to send text
+                               // Setting LOW enables the receiver (sensor) to send text
 
 // Construct software serial object for Modbus
 AltSoftSerial modbusSerial;  // On Mayfly, requires connection D5 & D6
@@ -89,37 +92,36 @@ String prettyprintAddressHex(byte _modbusAddress) {
 
 // Give values to variables;
 byte modbusSlaveID = defaultModbusAddress;
-byte _slaveID = modbusSlaveID;
+byte _slaveID      = modbusSlaveID;
 
 // Get modbus slave ID or Sensor Modbus Address
 byte getSensorAddress(void) {
-    return modbus.byteFromRegister(0x03, 0x020D, 2); 
+    return modbus.byteFromRegister(0x03, 0x020D, 2);
     // byte byteFromRegister(byte regType, int regNum, int byteNum)
 }
 
 // Get sensor serial number
 long getSerialNumber(void) {
-    return modbus.uint32FromRegister(0x03, 0x0202); 
-    // uint32_t uint32FromRegister(byte regType, int regNum, endianness endian=bigEndian);
+    return modbus.uint32FromRegister(0x03, 0x0202);
+    // uint32_t uint32FromRegister(byte regType, int regNum, endianness
+    // endian=bigEndian);
 }
 
 // Calculate water depth from pressure and temperature
 float calcWaterDepthM(float waterPressureBar, float waterTempertureC) {
     /// Initialize variables
-    float waterPressurePa;
-    float waterDensity;
-    float waterDepthM;
-    const float gravitationalConstant = 9.80665; // m/s2, meters per second squared
+    float       waterPressurePa;
+    float       waterDensity;
+    float       waterDepthM;
+    const float gravitationalConstant = 9.80665;  // m/s2, meters per second squared
 
     waterPressurePa = 1e5 * waterPressureBar;
     // Water density (kg/m3) from equation 6 from JonesHarris1992-NIST-DensityWater.pdf
-    waterDensity =  + 999.84847
-                    + 6.337563e-2 * waterTempertureC
-                    - 8.523829e-3 * pow(waterTempertureC,2)
-                    + 6.943248e-5 * pow(waterTempertureC,3)
-                    - 3.821216e-7 * pow(waterTempertureC,4)
-                    ;
-    waterDepthM = waterPressurePa/(waterDensity * gravitationalConstant);  // from P = rho * g * h
+    waterDensity = +999.84847 + 6.337563e-2 * waterTempertureC -
+        8.523829e-3 * pow(waterTempertureC, 2) +
+        6.943248e-5 * pow(waterTempertureC, 3) - 3.821216e-7 * pow(waterTempertureC, 4);
+    waterDepthM = waterPressurePa /
+        (waterDensity * gravitationalConstant);  // from P = rho * g * h
 
     return waterDepthM;
 }
@@ -129,7 +131,6 @@ float calcWaterDepthM(float waterPressureBar, float waterTempertureC) {
 //  Arduino Setup Function
 // ==========================================================================
 void setup() {
-
     // Setup power pins
     if (sensorPwrPin > 0) {
         pinMode(sensorPwrPin, OUTPUT);
@@ -139,23 +140,22 @@ void setup() {
         pinMode(adapterPwrPin, OUTPUT);
         digitalWrite(adapterPwrPin, HIGH);
     }
-    if (DEREPin > 0) {
-        pinMode(DEREPin, OUTPUT);
-    }
+    if (DEREPin > 0) { pinMode(DEREPin, OUTPUT); }
 
     // Turn on the "main" serial port for debugging via USB Serial Monitor
     Serial.begin(serialBaud);
 
     // Turn on your modbus serial port
-    modbusSerial.begin(modbusBaud);  // The modbus serial stream - Baud rate MUST be 9600.
+    modbusSerial.begin(
+        modbusBaud);  // The modbus serial stream - Baud rate MUST be 9600.
 
     // Setup the modbus instance
     modbus.begin(defaultModbusAddress, modbusSerial, DEREPin);
 
-    // Turn on debugging
-    #ifdef DEBUG
-        modbus.setDebugStream(&Serial);
-    #endif
+// Turn on debugging
+#ifdef DEBUG
+    modbus.setDebugStream(&Serial);
+#endif
 
     // Start up note
     Serial.println("\nChange Parity utility for GroPoint Profile sensors ");
@@ -203,30 +203,32 @@ void setup() {
 }
 
 // Initialize variables
-float waterPressureBar = -9999.0;
-float waterPressurePa  = -9999.0;
-float waterTempertureC = -9999.0;
-float waterDensity = -9999.0;
-float waterDepthM = -9999.0;
-const float gravitationalConstant = 9.80665; // m/s2, meters per second squared
+float       waterPressureBar      = -9999.0;
+float       waterPressurePa       = -9999.0;
+float       waterTempertureC      = -9999.0;
+float       waterDensity          = -9999.0;
+float       waterDepthM           = -9999.0;
+const float gravitationalConstant = 9.80665;  // m/s2, meters per second squared
 
 // ---------------------------------------------------------------------------
 // Main loop function
 // ---------------------------------------------------------------------------
-void loop()
-{
+void loop() {
     Serial.println("Reading!");
 
-    waterPressureBar = modbus.float32FromRegister(0x03,  0x0100);
+    waterPressureBar = modbus.float32FromRegister(0x03, 0x0100);
     Serial.print("Presure (mbar): ");
     Serial.println(waterPressureBar, 6);
 
-    waterTempertureC = modbus.float32FromRegister(0x03,  0x0102);
+    waterTempertureC = modbus.float32FromRegister(0x03, 0x0102);
     Serial.print("Temperature (C): ");
     Serial.println(waterTempertureC, 4);
 
     // Calculate Water Depth in Meters
-    waterDepthM = calcWaterDepthM(waterPressureBar, waterTempertureC);  // float calcWaterDepthM(float waterPressureBar, float waterTempertureC)
+    waterDepthM =
+        calcWaterDepthM(waterPressureBar,
+                        waterTempertureC);  // float calcWaterDepthM(float
+                                            // waterPressureBar, float waterTempertureC)
     Serial.print("Depth (mWC) by func: ");
     Serial.println(waterDepthM, 8);
 
