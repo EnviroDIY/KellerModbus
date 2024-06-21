@@ -1,8 +1,7 @@
 /**
  * @file KellerModbus.cpp
- * @copyright Stroud Water Research Center
  * Part of the EnviroDIY KellerModbus library for Arduino.
- * This library is published under the BSD-3 license.
+ * @license This library is published under the BSD-3 license.
  * @author Anthony Aufdenkampe and Neil Hancock
  *
  * @brief Contains the KellerModbus class definitions.

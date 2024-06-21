@@ -1,7 +1,6 @@
 /** =========================================================================
  * @example{lineno} GetValues.ino
  * @author Anthony Aufdenkampe
- * @copyright Stroud Water Research Center
  * @license This example is published under the BSD-3 license.
  *
  * @brief For testing individual functions in KellerModbus library.
