@@ -1,0 +1,145 @@
+{
+  "version": "1.11.0",
+  "compound": {
+    "kind": "file",
+    "id": "_keller_modbus_8h",
+    "name": "KellerModbus.h",
+    "url_base": "_keller_modbus_8h",
+    "url": "_keller_modbus_8h.html",
+    "include": null,
+    "has_template_details": false,
+    "templates": null,
+    "brief": "Contains the KellerModbus class declarations.",
+    "description": "<p>Part of the EnviroDIY KellerModbus library for Arduino.</p><aside class=\"m-note m-default\"><h4>License</h4><p>This library is published under the BSD-3 license.</p></aside><aside class=\"m-note m-default\"><h4>Author</h4><p>Anthony Aufdenkampe and Neil Hancock</p></aside><p>Tested with Acculevel, Nanolevel</p><ul><li>a Keller Series 30, Class 5, Group 20 sensor</li><li>Software version 5.20-12.28 and later (i.e. made after the 2012 in the 28th week)</li></ul>",
+    "sections": "",
+    "deprecated": null,
+    "since": null,
+    "example_navigation": null,
+    "footer_navigation": null,
+    "modules": [],
+    "dirs": [],
+    "files": [],
+    "namespaces": [],
+    "classes": [
+      {
+        "kind": "class",
+        "url": "classkeller.html",
+        "name": "keller",
+        "brief": "The class for communicating with Keller Sensors.",
+        "deprecated": null,
+        "since": null,
+        "templates": null
+      }
+    ],
+    "base_classes": [],
+    "derived_classes": [],
+    "enums": [
+      {
+        "base_url": "_keller_modbus_8h.html",
+        "id": "a9b53ddc43ac5a3d1c5a2309446cbb646",
+        "include": null,
+        "has_details": true,
+        "type": "",
+        "name": "kellerModel",
+        "brief": "The various Keller sensors.",
+        "description": "",
+        "deprecated": null,
+        "since": null,
+        "is_protected": false,
+        "is_strong": false,
+        "values": [
+          {
+            "id": "a9b53ddc43ac5a3d1c5a2309446cbb646a4110049cafa4ff8c35b7bff40ad16549",
+            "name": "Acculevel_kellerModel",
+            "initializer": "= 0",
+            "brief": "Use for a Keller AccuLevel.",
+            "description": "",
+            "deprecated": null,
+            "since": null
+          },
+          {
+            "id": "a9b53ddc43ac5a3d1c5a2309446cbb646a579cc5e507dfec2a2b42132d5e241ec7",
+            "name": "Nanolevel_kellerModel",
+            "initializer": "= 1",
+            "brief": "Use for a Keller NanoLevel.",
+            "description": "",
+            "deprecated": null,
+            "since": null
+          },
+          {
+            "id": "a9b53ddc43ac5a3d1c5a2309446cbb646adbf1dee1b8cd7ea3c82661943c7b74f4",
+            "name": "OTHER",
+            "initializer": "",
+            "brief": "Use if the sensor model is another model.",
+            "description": "",
+            "deprecated": null,
+            "since": null
+          }
+        ],
+        "has_value_details": true
+      }
+    ],
+    "typedefs": [
+      {
+        "base_url": "_keller_modbus_8h.html",
+        "id": "ae738de82a8b61f2714702c4c07a01b04",
+        "include": null,
+        "has_details": false,
+        "is_using": false,
+        "type": "enum <a href=\"_keller_modbus_8h.html#a9b53ddc43ac5a3d1c5a2309446cbb646\" class=\"m-doc\">kellerModel</a>",
+        "args": "",
+        "name": "kellerModel",
+        "brief": "The various Keller sensors.",
+        "description": "",
+        "deprecated": null,
+        "since": null,
+        "is_protected": false,
+        "has_template_details": false,
+        "templates": null
+      }
+    ],
+    "funcs": [],
+    "vars": [],
+    "defines": [],
+    "public_types": [],
+    "public_static_funcs": [],
+    "typeless_funcs": [],
+    "public_funcs": [],
+    "signals": [],
+    "public_slots": [],
+    "public_static_vars": [],
+    "public_vars": [],
+    "protected_types": [],
+    "protected_static_funcs": [],
+    "protected_funcs": [],
+    "protected_slots": [],
+    "protected_static_vars": [],
+    "protected_vars": [],
+    "private_funcs": [],
+    "private_slots": [],
+    "related": [],
+    "friend_funcs": [],
+    "groups": [],
+    "has_enum_details": true,
+    "has_typedef_details": false,
+    "has_func_details": false,
+    "has_var_details": false,
+    "has_define_details": false,
+    "breadcrumb": [
+      [
+        "src",
+        "dir_68267d1309a1af8e8297ef4c3efbcdba.html"
+      ],
+      [
+        "KellerModbus.h",
+        "_keller_modbus_8h.html"
+      ]
+    ],
+    "breadcrumbGroup": [
+      [
+        "KellerModbus.h",
+        "_keller_modbus_8h.html"
+      ]
+    ]
+  }
+}

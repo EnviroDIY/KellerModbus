@@ -1,0 +1,84 @@
+{
+  "version": "1.11.0",
+  "compound": {
+    "kind": "page",
+    "id": "indexpage",
+    "name": "KellerModbus",
+    "url_base": "index",
+    "url": "index.html",
+    "include": null,
+    "has_template_details": false,
+    "templates": null,
+    "brief": "",
+    "description": "<p><a name=\"mainpage\"></a> A library to use an Arduino as a master to control and communicate via modbus with the pressure and water level sensors produced by Keller International &amp; <a href=\"https://www.kelleramerica.com\">Keller America</a>.</p><p>This library depends on the <a href=\"https://github.com/EnviroDIY/SensorModbusMaster\">EnviroDIY/<wbr />SensorModbusMaster</a> library. The <a href=\"https://github.com/EnviroDIY/ModularSensors\">EnviroDIY/<wbr />ModularSensor</a> library functions for Keller depend on this library.</p><p>The library has been tested to work with a Keller Nanolevel and a Keller Acculevel, which is a Keller Series 30, Class 5, Group 20 sensor water level transmitter with a software/firmware version of 5.20-12.28 (i.e. made after the 2012 in the 28th week). The library should also work with all Keller sensors of the same Series/Class/Group with the same or a later software version.</p><section id=\"mainpage_functions\"><h2>Functions</h2><p>This library only implements the following small subset of functions from those described in the <a href=\"https://www.kelleramerica.com/manuals-and-software/manuals/series30%20comm_protocol_e.pdf\">Keller Series 30 Communication Protocol Manual</a>. These are:</p><ul><li><code>getSerialNumber</code></li><li><code>getValues</code>, for presssure and temperature</li></ul><p>This library also calculates water depth via the following function:</p><ul><li><code>calcWaterDepthM</code>, based on water pressure and temperature-dependency on water density, following equation 6 from <a href=\"https://github.com/EnviroDIY/KellerModbus/blob/master/doc/JonesHarris1992-NIST-DensityWater.pdf\">JonesHarris1992-NIST-DensityWater.pdf</a>.</li></ul></section><section id=\"mainpage_license\"><h2>License</h2><p>Software sketches and code are released under the BSD 3-Clause License &ndash; See <a href=\"https://github.com/EnviroDIY/ModularSensors/blob/master/LICENSE.md\">LICENSE.md</a> file for details.</p><p>Documentation is licensed as <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Attribution-ShareAlike 4.0</a> (CC-BY-SA) copyright.</p></section><section id=\"mainpage_acknowledgments\"><h2>Acknowledgments</h2><p><a href=\"http://envirodiy.org/\">EnviroDIY</a>\u2122 is presented by the Stroud Water Research Center, with contributions from a community of enthusiasts sharing do-it-yourself ideas for environmental science and monitoring.</p><p><a href=\"https://github.com/aufdenkampe\">Anthony Aufdenakmpe</a> is the primary developer of this library. We are grateful for the helpful technical assistance from the staff at <a href=\"https://www.kelleramerica.com\">Keller America</a>.</p><p>This library has benefited from the support from the following funders:</p><ul><li><a href=\"https://www.winona.edu\">Winona State University</a>, <a href=\"https://www.winona.edu/geoscience/waterresource.asp\">Southeastern Minnesota Water Resources Center</a></li></ul></section>",
+    "sections": [
+      [
+        "mainpage_functions",
+        "Functions",
+        []
+      ],
+      [
+        "mainpage_license",
+        "License",
+        []
+      ],
+      [
+        "mainpage_acknowledgments",
+        "Acknowledgments",
+        []
+      ]
+    ],
+    "deprecated": null,
+    "since": null,
+    "example_navigation": null,
+    "footer_navigation": null,
+    "modules": [],
+    "dirs": [],
+    "files": [],
+    "namespaces": [],
+    "classes": [],
+    "base_classes": [],
+    "derived_classes": [],
+    "enums": [],
+    "typedefs": [],
+    "funcs": [],
+    "vars": [],
+    "defines": [],
+    "public_types": [],
+    "public_static_funcs": [],
+    "typeless_funcs": [],
+    "public_funcs": [],
+    "signals": [],
+    "public_slots": [],
+    "public_static_vars": [],
+    "public_vars": [],
+    "protected_types": [],
+    "protected_static_funcs": [],
+    "protected_funcs": [],
+    "protected_slots": [],
+    "protected_static_vars": [],
+    "protected_vars": [],
+    "private_funcs": [],
+    "private_slots": [],
+    "related": [],
+    "friend_funcs": [],
+    "groups": [],
+    "has_enum_details": false,
+    "has_typedef_details": false,
+    "has_func_details": false,
+    "has_var_details": false,
+    "has_define_details": false,
+    "breadcrumb": [
+      [
+        "KellerModbus",
+        "index.html"
+      ]
+    ],
+    "breadcrumbGroup": [
+      [
+        "KellerModbus",
+        "index.html"
+      ]
+    ]
+  }
+}
