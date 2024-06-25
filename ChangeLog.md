@@ -20,6 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ***
 
+## [0.2.3]
+
+### Added
+
+- Added keywords.txt for Arduino IDE
+
+***
+
 ## [0.2.2]
 
 ### Changed
@@ -32,10 +40,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added Doxygen documentation
 
-### Removed
-
-### Fixed
-
 ***
 
 ## [0.2.1]
@@ -43,12 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Renumbered model enumerations to avoid namespace conflicts
-
-### Added
-
-### Removed
-
-### Fixed
 
 ***
 
@@ -58,6 +56,8 @@ Initial release
 
 ***
 
-[Unreleased]: https://github.com/EnviroDIY/KellerModbus/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/EnviroDIY/KellerModbus/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.3
+[0.2.2]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.2
 [0.2.1]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.1
 [0.2.0]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.0
