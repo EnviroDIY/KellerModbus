@@ -144,59 +144,60 @@ void setup() {
 #endif
 
     // Start up note
-    Serial.println("Keller Acculevel (or other Series 30, Class 5, Group 20 sensor)");
+    Serial.println(
+        F("Keller Acculevel (or other Series 30, Class 5, Group 20 sensor)"));
 
     // Allow the sensor and converter to warm up
-    Serial.println("\nWaiting for sensor and adapter to be ready.");
-    Serial.print("    Warm up time (ms): ");
+    Serial.println(F("\nWaiting for sensor and adapter to be ready."));
+    Serial.print(F("    Warm up time (ms): "));
     Serial.println(WARM_UP_TIME);
     delay(WARM_UP_TIME);
 
     // Confirm Modbus Address
-    Serial.println("\nSelected modbus address:");
-    Serial.print("    integer: ");
+    Serial.println(F("\nSelected modbus address:"));
+    Serial.print(F("    integer: "));
     Serial.print(modbusAddress, DEC);
-    Serial.print(", hexidecimal: ");
+    Serial.print(F(", hexidecimal: "));
     Serial.println(sensorLocation(modbusAddress));
 
-    Serial.println("Discovered modbus address.");
-    Serial.print("    integer: ");
+    Serial.println(F("Discovered modbus address."));
+    Serial.print(F("    integer: "));
     byte id = sensor.getSlaveID();
     Serial.print(id, DEC);
-    Serial.print(", hexidecimal: ");
+    Serial.print(F(", hexidecimal: "));
     // Serial.print(id, HEX);
     Serial.println(sensorLocation(id));
 
     // Get the sensor serial number
-    Serial.println("\nGetting sensor serial number.");
+    Serial.println(F("\nGetting sensor serial number."));
     long SN = sensor.getSerialNumber();
-    Serial.print("    Serial Number: ");
+    Serial.print(F("    Serial Number: "));
     Serial.println(SN);
 
     // Get the sensor's hardware and software version
     // NOT YET IMPLEMENTED. See KellerTest.ino for work in progress
     // Tell the sensor to start taking measurements
-    Serial.println("Starting sensor measurements");
+    Serial.println(F("Starting sensor measurements"));
 
-    Serial.println("Waiting for sensor to stabilize..");
-    Serial.print("    Stabilization time (ms): ");
+    Serial.println(F("Waiting for sensor to stabilize.."));
+    Serial.print(F("    Stabilization time (ms): "));
     Serial.println(STABILIZATION_TIME);
     for (int i = (STABILIZATION_TIME + 500) / 1000; i > 0; i--) {  // +500 to round up
         Serial.print(i);
         delay(250);
-        Serial.print(".");
+        Serial.print(F("."));
         delay(250);
-        Serial.print(".");
+        Serial.print(F("."));
         delay(250);
-        Serial.print(".");
+        Serial.print(F("."));
         delay(250);
     }
-    Serial.println("\n");
+    Serial.println(F("\n"));
 
     // Print table headers
-    Serial.print("Temp(°C)  ");
-    Serial.print("Pressure(bar)  ");
-    Serial.print("Depth (mWC)");
+    Serial.print(F("Temp(°C)  "));
+    Serial.print(F("Pressure(bar)  "));
+    Serial.print(F("Depth (mWC)"));
     Serial.println();
 }
 
@@ -217,9 +218,9 @@ void loop() {
 
     // Print values
     Serial.print(waterTempertureC);
-    Serial.print("      ");
+    Serial.print(F("      "));
     Serial.print(waterPressureBar, 7);
-    Serial.print("      ");
+    Serial.print(F("      "));
     Serial.print(waterDepthM, 6);
     Serial.println();
 
