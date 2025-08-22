@@ -45,9 +45,8 @@ byte modbusAddress = 0x01;  // The sensor's modbus address, or SlaveID
 // Edit these to explore
 #define WARM_UP_TIME 1000  // milliseconds for sensor to respond to commands.
 
-#define STABILIZATION_TIME \
-    4000  // milliseconds for readings to stablize.#define MEASUREMENT_TIME 1000  //
-          // milliseconds to complete a measurement.
+#define STABILIZATION_TIME 4000  // milliseconds for readings to stablize.
+#define MEASUREMENT_TIME 1000    // milliseconds to complete a measurement.
 
 #define MEASUREMENT_TIME 1000  // milliseconds to complete a measurement.
 // ==========================================================================
@@ -202,9 +201,9 @@ void setup() {
 }
 
 // Initialize variables
-float waterPressureBar = -9999.0;
+float waterPressureBar  = -9999.0;
 float waterTemperatureC = -9999.0;
-float waterDepthM      = -9999.0;
+float waterDepthM       = -9999.0;
 
 // ==========================================================================
 // Main loop function
