@@ -9,10 +9,4 @@
 /**
  * @dir examples
  * @brief Contains all of the example sketches
- * @dir examples/GetValues
- * @copybrief GetValues.ino
- */
-/**
- * @dir extras
- * @brief Has extra calibration, sensor testing, and debugging sketches
  */
