@@ -15,6 +15,7 @@ The library has been tested to work with a Keller Nanolevel and a Keller Acculev
 
 - [KellerModbus](#kellermodbus)
   - [Functions](#functions)
+  - [Library installation](#library-installation)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
 
@@ -30,6 +31,13 @@ This library only implements the following small subset of functions from those 
 This library also calculates water depth via the following function:
 
 - `calcWaterDepthM`, based on water pressure and temperature-dependency on water density, following equation 6 from [JonesHarris1992-NIST-DensityWater.pdf](https://github.com/EnviroDIY/KellerModbus/blob/master/doc/JonesHarris1992-NIST-DensityWater.pdf).
+
+## Library installation
+
+This library is available through both the Arduino and PlatformIO library registries.
+[Here is the PlatformIO registry page.](https://registry.platformio.org/libraries/envirodiy/KellerModbus)
+Use the Arduino IDE to find the library in that registry.
+The build and ingest logs for this library into the Arduino library registry are available [here](https://downloads.arduino.cc/libraries/logs/github.com/EnviroDIY/KellerModbus/).
 
 ## License<!--! {#mainpage_license} -->
 
