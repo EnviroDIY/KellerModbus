@@ -161,11 +161,11 @@ class keller {
      *
      * @param waterPressureBar The pressure of the water in bar. This value should be
      * acquired with keller::getValues(float& valueP1, float& valueTOB1)
-     * @param waterTempertureC The temperature of the water in degrees celsius. This
+     * @param waterTemperatureC The temperature of the water in degrees celsius. This
      * value should be acquired with keller::getValues(float& valueP1, float& valueTOB1)
      * @return *float* The water depth in meters.
      */
-    float calcWaterDepthM(float& waterPressureBar, float& waterTempertureC);
+    float calcWaterDepthM(float& waterPressureBar, float& waterTemperatureC);
 
     // This sets a stream for debugging information to go to;
 

@@ -25,7 +25,7 @@ The library has been tested to work with a Keller Nanolevel and a Keller Acculev
 This library only implements the following small subset of functions from those described in the [Keller Series 30 Communication Protocol Manual](https://www.kelleramerica.com/manuals-and-software/manuals/series30%20comm_protocol_e.pdf). These are:
 
 - `getSerialNumber`
-- `getValues`, for presssure and temperature
+- `getValues`, for pressure and temperature
 
 This library also calculates water depth via the following function:
 
@@ -41,7 +41,7 @@ Documentation is licensed as [Creative Commons Attribution-ShareAlike 4.0](https
 
 [EnviroDIY](http://envirodiy.org/)™ is presented by the Stroud Water Research Center, with contributions from a community of enthusiasts sharing do-it-yourself ideas for environmental science and monitoring.
 
-[Anthony Aufdenakmpe](https://github.com/aufdenkampe) is the primary developer of this library.
+[Anthony Aufdenkampe](https://github.com/aufdenkampe) is the primary developer of this library.
 We are grateful for the helpful technical assistance from the staff at [Keller America](https://www.kelleramerica.com).
 
 This library has benefited from the support from the following funding sources:
