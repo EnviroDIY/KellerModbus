@@ -1,5 +1,5 @@
 {
-  "version": "1.11.0",
+  "version": "1.14.0",
   "index": {
     "symbols": [
       {
@@ -33,21 +33,22 @@
         "name": "examples",
         "url": "dir_d28a4824dc47e487b107a5db32ef43c4.html",
         "brief": "Contains all of the example sketches.",
-        "children": [],
+        "children": [
+          {
+            "id": "dir_67ec081ba6b5a9137a8114a038b678e6",
+            "kind": "dir",
+            "name": "GetValues",
+            "url": "dir_67ec081ba6b5a9137a8114a038b678e6.html",
+            "brief": "Contains the GetValues example.",
+            "children": [],
+            "deprecated": null,
+            "since": null,
+            "has_nestable_children": false
+          }
+        ],
         "deprecated": null,
         "since": null,
-        "has_nestable_children": false
-      },
-      {
-        "id": "dir_1510bd745cd29c20d24c27171ebe5ba5",
-        "kind": "dir",
-        "name": "extras",
-        "url": "dir_1510bd745cd29c20d24c27171ebe5ba5.html",
-        "brief": "Has extra calibration, sensor testing, and debugging sketches.",
-        "children": [],
-        "deprecated": null,
-        "since": null,
-        "has_nestable_children": false
+        "has_nestable_children": true
       },
       {
         "id": "dir_68267d1309a1af8e8297ef4c3efbcdba",
@@ -120,6 +121,6 @@
         "has_nestable_children": false
       }
     ],
-    "modules": []
+    "topics": []
   }
 }

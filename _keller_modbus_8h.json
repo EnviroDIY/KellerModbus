@@ -1,5 +1,5 @@
 {
-  "version": "1.11.0",
+  "version": "1.14.0",
   "compound": {
     "kind": "file",
     "id": "_keller_modbus_8h",
@@ -16,7 +16,7 @@
     "since": null,
     "example_navigation": null,
     "footer_navigation": null,
-    "modules": [],
+    "topics": [],
     "dirs": [],
     "files": [],
     "namespaces": [],
@@ -86,7 +86,7 @@
         "include": null,
         "has_details": false,
         "is_using": false,
-        "type": "enum <a href=\"_keller_modbus_8h.html#a9b53ddc43ac5a3d1c5a2309446cbb646\" class=\"m-doc\">kellerModel</a>",
+        "type": "enum <a href=\"#a9b53ddc43ac5a3d1c5a2309446cbb646\" class=\"m-doc\">kellerModel</a>",
         "args": "",
         "name": "kellerModel",
         "brief": "The various Keller sensors.",

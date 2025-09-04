@@ -1,5 +1,5 @@
 {
-  "version": "1.11.0",
+  "version": "1.14.0",
   "compound": {
     "kind": "class",
     "id": "classkeller",
@@ -19,7 +19,7 @@
     "since": null,
     "example_navigation": null,
     "footer_navigation": null,
-    "modules": [],
+    "topics": [],
     "dirs": [],
     "files": [],
     "namespaces": [],
@@ -363,7 +363,7 @@
       },
       {
         "base_url": "classkeller.html",
-        "id": "ac5d5db1bb986109ef529e0ca566c8b2c",
+        "id": "aa9f1f0f119984df2e94eddc3381b1943",
         "include": null,
         "has_details": true,
         "type": "float",
@@ -401,15 +401,15 @@
             "type": "float&amp;",
             "type_name": "float&amp; waterPressureBar",
             "default": null,
-            "description": "The pressure of the water in bar. This value should be acquired with <a href=\"classkeller.html#aaafcd810c87ca780f8e93e6fb2d4134e\" class=\"m-doc\">keller::<wbr />getValues(float&amp; valueP1, float&amp; valueTOB1)</a>",
+            "description": "The pressure of the water in bar. This value should be acquired with <a href=\"#aaafcd810c87ca780f8e93e6fb2d4134e\" class=\"m-doc\">keller::<wbr />getValues(float&amp; valueP1, float&amp; valueTOB1)</a>",
             "direction": ""
           },
           {
-            "name": "waterTempertureC",
+            "name": "waterTemperatureC",
             "type": "float&amp;",
-            "type_name": "float&amp; waterTempertureC",
+            "type_name": "float&amp; waterTemperatureC",
             "default": null,
-            "description": "The temperature of the water in degrees celsius. This value should be acquired with <a href=\"classkeller.html#aaafcd810c87ca780f8e93e6fb2d4134e\" class=\"m-doc\">keller::<wbr />getValues(float&amp; valueP1, float&amp; valueTOB1)</a>",
+            "description": "The temperature of the water in degrees celsius. This value should be acquired with <a href=\"#aaafcd810c87ca780f8e93e6fb2d4134e\" class=\"m-doc\">keller::<wbr />getValues(float&amp; valueP1, float&amp; valueTOB1)</a>",
             "direction": ""
           }
         ]

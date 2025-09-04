@@ -1,22 +1,22 @@
 {
-  "version": "1.11.0",
+  "version": "1.14.0",
   "compound": {
     "kind": "dir",
-    "id": "dir_1510bd745cd29c20d24c27171ebe5ba5",
-    "name": "extras",
-    "url_base": "dir_1510bd745cd29c20d24c27171ebe5ba5",
-    "url": "dir_1510bd745cd29c20d24c27171ebe5ba5.html",
+    "id": "dir_67ec081ba6b5a9137a8114a038b678e6",
+    "name": "examples/GetValues",
+    "url_base": "dir_67ec081ba6b5a9137a8114a038b678e6",
+    "url": "dir_67ec081ba6b5a9137a8114a038b678e6.html",
     "include": null,
     "has_template_details": false,
     "templates": null,
-    "brief": "Has extra calibration, sensor testing, and debugging sketches.",
+    "brief": "Contains the GetValues example.",
     "description": "",
     "sections": "",
     "deprecated": null,
     "since": null,
     "example_navigation": null,
     "footer_navigation": null,
-    "modules": [],
+    "topics": [],
     "dirs": [],
     "files": [],
     "namespaces": [],
@@ -54,14 +54,18 @@
     "has_define_details": false,
     "breadcrumb": [
       [
-        "extras",
-        "dir_1510bd745cd29c20d24c27171ebe5ba5.html"
+        "examples",
+        "dir_d28a4824dc47e487b107a5db32ef43c4.html"
+      ],
+      [
+        "GetValues",
+        "dir_67ec081ba6b5a9137a8114a038b678e6.html"
       ]
     ],
     "breadcrumbGroup": [
       [
-        "extras",
-        "dir_1510bd745cd29c20d24c27171ebe5ba5.html"
+        "GetValues",
+        "dir_67ec081ba6b5a9137a8114a038b678e6.html"
       ]
     ]
   }

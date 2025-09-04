@@ -1,5 +1,5 @@
 {
-  "version": "1.11.0",
+  "version": "1.14.0",
   "compound": {
     "kind": "page",
     "id": "page_the_examples",
@@ -10,7 +10,7 @@
     "has_template_details": false,
     "templates": null,
     "brief": "",
-    "description": "<p><a name=\"md_examples_2_read_me\"></a> These example programs demonstrate how to use the Keller Modbus library.</p><hr/><section id=\"examples_get_values\"><h2>Getting Sensor Values</h2><p>This example gets values from and tests other functions of the Keller Modbus library.</p><ul><li><a href=\"https://envirodiy.github.io/KellerModbus/example_get_values.html\">Instructions for the get values example</a></li><li><a href=\"https://github.com/EnviroDIY/KellerModbus/tree/master/examples/GetValues\">The get values example on GitHub</a></li></ul></section>",
+    "description": "<p><a name=\"md_examples_2_read_me\"></a></p><p>These example programs demonstrate how to use the Keller Modbus library.</p><hr/><section id=\"examples_get_values\"><h2>Getting Sensor Values</h2><p>This example gets values from and tests other functions of the Keller Modbus library.</p><ul><li><a href=\"example_get_values.html\" class=\"m-doc\">Instructions for the get values example</a></li><li><p><a href=\"https://github.com/EnviroDIY/KellerModbus/tree/master/examples/GetValues\">The get values example on GitHub</a></p></li></ul></section>",
     "sections": [
       [
         "examples_get_values",
@@ -22,7 +22,7 @@
     "since": null,
     "example_navigation": null,
     "footer_navigation": null,
-    "modules": [],
+    "topics": [],
     "dirs": [],
     "files": [],
     "namespaces": [],

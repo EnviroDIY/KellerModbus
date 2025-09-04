@@ -1,0 +1,19 @@
+{
+  "is_final": false,
+  "parent": null,
+  "parentGroup": null,
+  "id": "classkeller",
+  "kind": "class",
+  "name": "keller",
+  "url": "classkeller.html",
+  "brief": "The class for communicating with Keller Sensors.",
+  "has_details": true,
+  "children": [],
+  "childrenClasses": [],
+  "childrenNamespaces": [],
+  "childrenCompoundRefs": [],
+  "deprecated": null,
+  "since": null,
+  "templates": null,
+  "leaf_name": "keller"
+}
