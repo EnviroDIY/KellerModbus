@@ -103,7 +103,7 @@ bool keller::getValues(float& valueP1, float& valueTOB1) {
     valueTOB1 = -9999;  // Temperature (C) on board sensor 1
 
     switch (_model) {
-        case Nanolevel_kellerModel:  // This gets two values, but as seperate messages
+        case Nanolevel_kellerModel:  // This gets two values, but as separate messages
         {
             if (modbus.getRegisters(0x03, 0x0002, 2)) {
                 valueP1 = modbus.float32FromFrame(bigEndian, 3);
@@ -130,7 +130,7 @@ bool keller::getValues(float& valueP1, float& valueTOB1) {
     return true;
 }
 
-float keller::calcWaterDepthM(float& waterPressureBar, float& waterTempertureC) {
+float keller::calcWaterDepthM(float& waterPressureBar, float& waterTemperatureC) {
     /// Initialize variables
     float       waterPressurePa;                  // in Pascals (kg/m/s2)
     float       waterDensity;                     // in kmg/m2
@@ -143,10 +143,10 @@ float keller::calcWaterDepthM(float& waterPressureBar, float& waterTempertureC) 
         waterPressurePa = 1e5 * waterPressureBar;
         // Water density (kg/m3) from equation 6 from
         // JonesHarris1992-NIST-DensityWater.pdf
-        waterDensity = +999.84847 + 6.337563e-2 * waterTempertureC -
-            8.523829e-3 * pow(waterTempertureC, 2) +
-            6.943248e-5 * pow(waterTempertureC, 3) -
-            3.821216e-7 * pow(waterTempertureC, 4);
+        waterDensity = +999.84847 + 6.337563e-2 * waterTemperatureC -
+            8.523829e-3 * pow(waterTemperatureC, 2) +
+            6.943248e-5 * pow(waterTemperatureC, 3) -
+            3.821216e-7 * pow(waterTemperatureC, 4);
         waterDepthM = waterPressurePa /
             (waterDensity * gravitationalConstant);  // from P = rho * g * h
     }

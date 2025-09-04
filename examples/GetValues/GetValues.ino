@@ -45,9 +45,8 @@ byte modbusAddress = 0x01;  // The sensor's modbus address, or SlaveID
 // Edit these to explore
 #define WARM_UP_TIME 1000  // milliseconds for sensor to respond to commands.
 
-#define STABILIZATION_TIME \
-    4000  // milliseconds for readings to stablize.#define MEASUREMENT_TIME 1000  //
-          // milliseconds to complete a measurement.
+#define STABILIZATION_TIME 4000  // milliseconds for readings to stablize.
+#define MEASUREMENT_TIME 1000    // milliseconds to complete a measurement.
 
 #define MEASUREMENT_TIME 1000  // milliseconds to complete a measurement.
 // ==========================================================================
@@ -57,14 +56,14 @@ const int32_t serialBaud = 115200;  // Baud rate for serial monitor
 
 // Define pin number variables
 const int PwrPin  = 22;  // The pin sending power to the sensor *AND* RS485 adapter
-const int DEREPin = -1;  // The pin controlling Recieve Enable and Driver Enable
+const int DEREPin = -1;  // The pin controlling Receive Enable and Driver Enable
                          // on the RS485 adapter, if applicable (else, -1)
                          // Setting HIGH enables the driver (arduino) to send text
                          // Setting LOW enables the receiver (sensor) to send text
 
 // Construct a Serial object for Modbus
 #if defined(ARDUINO_AVR_UNO) || defined(ARDUINO_AVR_FEATHER328P)
-// The Uno only has 1 hardware serial port, which is dedicated to comunication with the
+// The Uno only has 1 hardware serial port, which is dedicated to communication with the
 // computer. If using an Uno, you will be restricted to using AltSofSerial or
 // SoftwareSerial
 #include <SoftwareSerial.h>
@@ -82,14 +81,14 @@ SoftwareSerial modbusSerial;
 #include <Adafruit_TinyUSB.h>
 HardwareSerial& modbusSerial = Serial1;
 #elif !defined(NO_GLOBAL_SERIAL1) && !defined(STM32_CORE_VERSION)
-// This is just a assigning another name to the same port, for convienence
+// This is just a assigning another name to the same port, for convenience
 // Unless it is unavailable, always prefer hardware serial.
-#pragma message("Using HarwareSerial / Serial1")
+#pragma message("Using HardwareSerial / Serial1")
 HardwareSerial& modbusSerial = Serial1;
 #else
-// This is just a assigning another name to the same port, for convienence
+// This is just a assigning another name to the same port, for convenience
 // Unless it is unavailable, always prefer hardware serial.
-#pragma message("Using HarwareSerial / Serial")
+#pragma message("Using HardwareSerial / Serial")
 HardwareSerial& modbusSerial = Serial;
 #endif
 
@@ -202,22 +201,22 @@ void setup() {
 }
 
 // Initialize variables
-float waterPressureBar = -9999.0;
-float waterTempertureC = -9999.0;
-float waterDepthM      = -9999.0;
+float waterPressureBar  = -9999.0;
+float waterTemperatureC = -9999.0;
+float waterDepthM       = -9999.0;
 
 // ==========================================================================
 // Main loop function
 // ==========================================================================
 void loop() {
-    sensor.getValues(waterPressureBar, waterTempertureC);
+    sensor.getValues(waterPressureBar, waterTemperatureC);
     waterDepthM = sensor.calcWaterDepthM(
         waterPressureBar,
-        waterTempertureC);  // float calcWaterDepthM(float waterPressureBar, float
-                            // waterTempertureC)
+        waterTemperatureC);  // float calcWaterDepthM(float waterPressureBar, float
+                             // waterTemperatureC)
 
     // Print values
-    Serial.print(waterTempertureC);
+    Serial.print(waterTemperatureC);
     Serial.print(F("      "));
     Serial.print(waterPressureBar, 7);
     Serial.print(F("      "));
