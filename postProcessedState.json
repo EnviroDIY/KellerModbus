@@ -161,7 +161,7 @@
       "name": "ChangeLog",
       "url": "change_log.html",
       "brief": "",
-      "has_details": 11,
+      "has_details": 12,
       "children": [],
       "childrenClasses": [],
       "childrenNamespaces": [],
@@ -279,7 +279,7 @@
   ],
   "doxyfile": {
     "PROJECT_NAME": "KellerModbus",
-    "PROJECT_NUMBER": "0.2.4",
+    "PROJECT_NUMBER": "0.2.5",
     "PROJECT_BRIEF": "An Arduino library for communication with Keller pressure and water level sensors via Modbus.",
     "PROJECT_LOGO": "gp-desktop-logo.png",
     "OUTPUT_DIRECTORY": "../../KellerModbus_Doxygen",
