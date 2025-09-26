@@ -1,23 +1,25 @@
 {
   "basedir": "/home/runner/work/KellerModbus/KellerModbus/code_docs/KellerModbus/docs",
   "compounds": {
-    "directories_8dox": {
+    "page_the_examples": {
       "is_final": null,
       "parent": null,
       "parentGroup": null,
-      "id": "directories_8dox",
-      "kind": "file",
-      "name": "directories.dox",
-      "url": "directories_8dox.html",
+      "id": "page_the_examples",
+      "kind": "page",
+      "name": "Examples using the Keller Library",
+      "url": "page_the_examples.html",
       "brief": "",
-      "has_details": false,
-      "children": [],
+      "has_details": 5,
+      "children": [
+        "example_get_values"
+      ],
       "childrenClasses": [],
       "childrenNamespaces": [],
       "childrenCompoundRefs": [],
       "deprecated": null,
       "since": null,
-      "leaf_name": "directories.dox"
+      "leaf_name": "Examples using the Keller Library"
     },
     "dir_d28a4824dc47e487b107a5db32ef43c4": {
       "is_final": null,
@@ -39,25 +41,23 @@
       "since": null,
       "leaf_name": "examples"
     },
-    "page_the_examples": {
+    "indexpage": {
       "is_final": null,
       "parent": null,
       "parentGroup": null,
-      "id": "page_the_examples",
+      "id": "indexpage",
       "kind": "page",
-      "name": "Examples using the Keller Library",
-      "url": "page_the_examples.html",
+      "name": "KellerModbus",
+      "url": "index.html",
       "brief": "",
-      "has_details": 5,
-      "children": [
-        "example_get_values"
-      ],
+      "has_details": 9,
+      "children": [],
       "childrenClasses": [],
       "childrenNamespaces": [],
       "childrenCompoundRefs": [],
       "deprecated": null,
       "since": null,
-      "leaf_name": "Examples using the Keller Library"
+      "leaf_name": "KellerModbus"
     },
     "_keller_modbus_8h": {
       "is_final": null,
@@ -77,23 +77,23 @@
       "since": null,
       "leaf_name": "KellerModbus.h"
     },
-    "indexpage": {
+    "change_log": {
       "is_final": null,
       "parent": null,
       "parentGroup": null,
-      "id": "indexpage",
+      "id": "change_log",
       "kind": "page",
-      "name": "KellerModbus",
-      "url": "index.html",
+      "name": "ChangeLog",
+      "url": "change_log.html",
       "brief": "",
-      "has_details": 9,
+      "has_details": 13,
       "children": [],
       "childrenClasses": [],
       "childrenNamespaces": [],
       "childrenCompoundRefs": [],
       "deprecated": null,
       "since": null,
-      "leaf_name": "KellerModbus"
+      "leaf_name": "ChangeLog"
     },
     "_keller_modbus_8cpp": {
       "is_final": null,
@@ -112,6 +112,24 @@
       "deprecated": null,
       "since": null,
       "leaf_name": "KellerModbus.cpp"
+    },
+    "dir_49e56c817e5e54854c35e136979f97ca": {
+      "is_final": null,
+      "parent": null,
+      "parentGroup": null,
+      "id": "dir_49e56c817e5e54854c35e136979f97ca",
+      "kind": "dir",
+      "name": "docs",
+      "url": "dir_49e56c817e5e54854c35e136979f97ca.html",
+      "brief": "Contains extra documentation and files to help build the documentation.",
+      "has_details": true,
+      "children": [],
+      "childrenClasses": [],
+      "childrenNamespaces": [],
+      "childrenCompoundRefs": [],
+      "deprecated": null,
+      "since": null,
+      "leaf_name": "docs"
     },
     "dir_68267d1309a1af8e8297ef4c3efbcdba": {
       "is_final": null,
@@ -134,15 +152,15 @@
       "since": null,
       "leaf_name": "src"
     },
-    "dir_67ec081ba6b5a9137a8114a038b678e6": {
-      "is_final": null,
-      "parent": "dir_d28a4824dc47e487b107a5db32ef43c4",
+    "classkeller": {
+      "is_final": false,
+      "parent": null,
       "parentGroup": null,
-      "id": "dir_67ec081ba6b5a9137a8114a038b678e6",
-      "kind": "dir",
-      "name": "examples/GetValues",
-      "url": "dir_67ec081ba6b5a9137a8114a038b678e6.html",
-      "brief": "Contains the GetValues example.",
+      "id": "classkeller",
+      "kind": "class",
+      "name": "keller",
+      "url": "classkeller.html",
+      "brief": "The class for communicating with Keller Sensors.",
       "has_details": true,
       "children": [],
       "childrenClasses": [],
@@ -150,43 +168,8 @@
       "childrenCompoundRefs": [],
       "deprecated": null,
       "since": null,
-      "leaf_name": "GetValues"
-    },
-    "change_log": {
-      "is_final": null,
-      "parent": null,
-      "parentGroup": null,
-      "id": "change_log",
-      "kind": "page",
-      "name": "ChangeLog",
-      "url": "change_log.html",
-      "brief": "",
-      "has_details": 12,
-      "children": [],
-      "childrenClasses": [],
-      "childrenNamespaces": [],
-      "childrenCompoundRefs": [],
-      "deprecated": null,
-      "since": null,
-      "leaf_name": "ChangeLog"
-    },
-    "dir_49e56c817e5e54854c35e136979f97ca": {
-      "is_final": null,
-      "parent": null,
-      "parentGroup": null,
-      "id": "dir_49e56c817e5e54854c35e136979f97ca",
-      "kind": "dir",
-      "name": "docs",
-      "url": "dir_49e56c817e5e54854c35e136979f97ca.html",
-      "brief": "Contains extra documentation and files to help build the documentation.",
-      "has_details": true,
-      "children": [],
-      "childrenClasses": [],
-      "childrenNamespaces": [],
-      "childrenCompoundRefs": [],
-      "deprecated": null,
-      "since": null,
-      "leaf_name": "docs"
+      "templates": null,
+      "leaf_name": "keller"
     },
     "examples_8dox": {
       "is_final": null,
@@ -206,24 +189,6 @@
       "since": null,
       "leaf_name": "examples.dox"
     },
-    "example_get_values": {
-      "is_final": null,
-      "parent": "page_the_examples",
-      "parentGroup": null,
-      "id": "example_get_values",
-      "kind": "page",
-      "name": "Getting Values",
-      "url": "example_get_values.html",
-      "brief": "",
-      "has_details": 5,
-      "children": [],
-      "childrenClasses": [],
-      "childrenNamespaces": [],
-      "childrenCompoundRefs": [],
-      "deprecated": null,
-      "since": null,
-      "leaf_name": "Getting Values"
-    },
     "keywords_8txt": {
       "is_final": null,
       "parent": null,
@@ -242,15 +207,51 @@
       "since": null,
       "leaf_name": "keywords.txt"
     },
-    "classkeller": {
-      "is_final": false,
+    "example_get_values": {
+      "is_final": null,
+      "parent": "page_the_examples",
+      "parentGroup": null,
+      "id": "example_get_values",
+      "kind": "page",
+      "name": "Getting Values",
+      "url": "example_get_values.html",
+      "brief": "",
+      "has_details": 5,
+      "children": [],
+      "childrenClasses": [],
+      "childrenNamespaces": [],
+      "childrenCompoundRefs": [],
+      "deprecated": null,
+      "since": null,
+      "leaf_name": "Getting Values"
+    },
+    "directories_8dox": {
+      "is_final": null,
       "parent": null,
       "parentGroup": null,
-      "id": "classkeller",
-      "kind": "class",
-      "name": "keller",
-      "url": "classkeller.html",
-      "brief": "The class for communicating with Keller Sensors.",
+      "id": "directories_8dox",
+      "kind": "file",
+      "name": "directories.dox",
+      "url": "directories_8dox.html",
+      "brief": "",
+      "has_details": false,
+      "children": [],
+      "childrenClasses": [],
+      "childrenNamespaces": [],
+      "childrenCompoundRefs": [],
+      "deprecated": null,
+      "since": null,
+      "leaf_name": "directories.dox"
+    },
+    "dir_67ec081ba6b5a9137a8114a038b678e6": {
+      "is_final": null,
+      "parent": "dir_d28a4824dc47e487b107a5db32ef43c4",
+      "parentGroup": null,
+      "id": "dir_67ec081ba6b5a9137a8114a038b678e6",
+      "kind": "dir",
+      "name": "examples/GetValues",
+      "url": "dir_67ec081ba6b5a9137a8114a038b678e6.html",
+      "brief": "Contains the GetValues example.",
       "has_details": true,
       "children": [],
       "childrenClasses": [],
@@ -258,16 +259,15 @@
       "childrenCompoundRefs": [],
       "deprecated": null,
       "since": null,
-      "templates": null,
-      "leaf_name": "keller"
+      "leaf_name": "GetValues"
     }
   },
   "includes": {
-    "directories.dox": "directories_8dox",
     "src/KellerModbus.h": "_keller_modbus_8h",
     "src/KellerModbus.cpp": "_keller_modbus_8cpp",
     "examples.dox": "examples_8dox",
-    "keywords.txt": "keywords_8txt"
+    "keywords.txt": "keywords_8txt",
+    "directories.dox": "directories_8dox"
   },
   "search": [],
   "examples": [
@@ -279,7 +279,7 @@
   ],
   "doxyfile": {
     "PROJECT_NAME": "KellerModbus",
-    "PROJECT_NUMBER": "0.2.5",
+    "PROJECT_NUMBER": "0.2.6",
     "PROJECT_BRIEF": "An Arduino library for communication with Keller pressure and water level sensors via Modbus.",
     "PROJECT_LOGO": "gp-desktop-logo.png",
     "OUTPUT_DIRECTORY": "../../KellerModbus_Doxygen",
@@ -392,7 +392,7 @@
     "SCROLLING_LOGO": "gp-scrolling-logo.png"
   },
   "images": [],
-  "current": "classkeller.xml",
+  "current": "dir_67ec081ba6b5a9137a8114a038b678e6.xml",
   "current_kind": null,
   "current_include": null,
   "current_prefix": [],
