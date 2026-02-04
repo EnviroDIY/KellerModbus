@@ -20,6 +20,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ***
 
+## [0.2.7]
+
+### Changed
+
+- Bumped SensorModbusMaster dependency
+
+***
+
 ## [0.2.6]
 
 ### Changed
@@ -87,7 +95,8 @@ Initial release
 
 ***
 
-[Unreleased]: https://github.com/EnviroDIY/KellerModbus/compare/v0.2.6...HEAD
+[Unreleased]: https://github.com/EnviroDIY/KellerModbus/compare/v0.2.7...HEAD
+[0.2.7]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.7
 [0.2.6]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.6
 [0.2.5]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.5
 [0.2.4]: https://github.com/EnviroDIY/YosemitechModbus/releases/tag/v0.2.4
